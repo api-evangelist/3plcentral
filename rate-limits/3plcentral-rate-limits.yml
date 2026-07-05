@@ -1,0 +1,65 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: 3PL Warehouse Manager
+providerId: 3plcentral
+created: '2026-07-04'
+modified: '2026-07-04'
+reconciled: false
+tags:
+- Warehouse Management
+- WMS
+- 3PL
+- Logistics
+- Rate Limiting
+- Quotas
+description: >-
+  3PL Warehouse Manager (SecureWMS) does not publish fixed numeric per-minute or
+  per-day request-rate limits for its REST API. The primary documented control
+  is token lifetime: access tokens issued by
+  https://secure-wms.com/AuthServer/api/Token are short-lived (typically valid
+  30-60 minutes) and Extensiv recommends refreshing the token no less than every
+  30 minutes and re-requesting on expiry. Collection reads are governed
+  practically by pagination (pgnum/pgsiz, commonly 100-200 records per page) and
+  by RQL filters that scope result sets rather than by a global request cap. All
+  traffic must be HTTPS; plain HTTP is rejected.
+notes: >-
+  No public numeric rate-limit values are documented as of the review date.
+  Clients should cache and reuse tokens within their validity window (do not mint
+  a token per request), page through large result sets, filter with RQL, and
+  implement exponential backoff on 429/5xx responses. Verify any account-specific
+  throttles with Extensiv during reconciliation.
+sources:
+- https://developer.3plcentral.com/
+- https://help.extensiv.com/rest-api/providing-rest-api-access
+- https://github.com/singer-io/tap-3plcentral
+responseCodes:
+  throttled: 429
+limits:
+- name: REST API Requests
+  scope: account
+  metric: requests
+  limit: not published
+  notes: No fixed numeric request-rate limit is documented for the SecureWMS REST API.
+- name: Access Token Lifetime
+  scope: token
+  metric: minutes
+  limit: ~30-60 minutes
+  notes: Tokens are short-lived; refresh no less than every 30 minutes and on expiry.
+- name: Collection Page Size
+  scope: request
+  metric: records
+  limit: pgsiz (commonly 100-200)
+  notes: List endpoints are paged via pgnum/pgsiz; large pulls loop pages.
+policies:
+- name: HTTPS Only
+  description: All integration traffic must use HTTPS; plain HTTP is not supported.
+- name: Token Reuse
+  description: Reuse a valid bearer token across requests within its lifetime rather than requesting a new token per call.
+- name: Pagination and Filtering
+  description: Use pgnum/pgsiz pagination and RQL filters to scope result sets and avoid unnecessary large scans.
+- name: Backoff Strategy
+  description: Implement exponential backoff with jitter and honor Retry-After on 429 responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

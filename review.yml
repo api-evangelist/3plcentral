@@ -1,0 +1,112 @@
+aid: 3plcentral
+name: 3PL Warehouse Manager
+review:
+  question: Does the 3PL Warehouse Manager API expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-04'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. The 3PL Warehouse Manager public
+    integration surface (the SecureWMS REST API at https://secure-wms.com) is
+    request/response REST over HTTPS. There is no documented server-push
+    transport - no WebSocket and no Server-Sent Events - on 3PL Warehouse
+    Manager's own API to model. Event-style delivery to external systems is done
+    through Extensiv's separate Integration Manager / connectors and partner
+    integrations, which are out of scope for a 3PL Warehouse Manager AsyncAPI
+    document.
+relationship:
+  note: |
+    This entry documents the 3PL Warehouse Manager product specifically - the
+    SecureWMS REST API (base https://secure-wms.com), formerly branded "3PL
+    Central". It is intended to be complementary to (not a duplicate of) the
+    broader all/extensiv company entry. Extensiv is the parent company and its
+    suite spans additional products (Order Management, Integration Manager,
+    Fulfillment Marketplace, Warehouse Analytics); the all/extensiv entry covers
+    the company/suite level, while this all/3plcentral entry stays scoped to the
+    3PL Warehouse Manager / SecureWMS API.
+  company: extensiv
+  companyEntry: all/extensiv
+findings:
+  summary: |
+    3PL Warehouse Manager does not publish a documented public WebSocket API.
+    Its public API is the SecureWMS REST API served from
+    https://secure-wms.com, authenticated with OAuth 2.0 client-credentials:
+    Base64-encode "clientId:clientSecret" and POST it as a Basic Authorization
+    header to /AuthServer/api/Token with a JSON body of
+    {"grant_type":"client_credentials","user_login_id":<id>}, returning a
+    short-lived bearer token (typically valid 30-60 minutes, refresh at least
+    every 30 minutes). All subsequent calls are pure request/response REST over
+    HTTPS - orders, items, inventory, stock details, stock summaries, receivers
+    (ASN), customers, facilities, locations, and order packages. Collections are
+    paged (pgnum/pgsiz) and filtered with Resource Query Language (RQL). No
+    realtime, bidirectional, or streaming WebSocket (ws:// or wss://) endpoint,
+    and no Server-Sent Events stream, is documented on 3PL Warehouse Manager's
+    own API as of the review date.
+  openSource: |
+    3PL Warehouse Manager itself is proprietary SaaS. There is no first-party
+    open-source SDK, but a community open-source Singer extractor
+    (github.com/singer-io/tap-3plcentral) exercises the read side of the
+    SecureWMS REST API and was used to confirm the GET endpoints and their
+    pagination/sort behavior in this entry.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://secure-wms.com
+      documented: true
+      note: SecureWMS REST API. All resources are request/response JSON over HTTPS. HTTP is not supported.
+    - protocol: OAuth2
+      scheme: https
+      documented: true
+      note: client_credentials token issuance at POST /AuthServer/api/Token; short-lived bearer token (~30-60 min).
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in the 3PL Warehouse Manager / SecureWMS developer documentation as of the review date.
+    - protocol: SSE
+      scheme: https
+      documented: false
+      note: No Server-Sent Events streaming surface is documented on the SecureWMS REST API.
+  endpointsConfirmed:
+    - POST https://secure-wms.com/AuthServer/api/Token
+    - GET  https://secure-wms.com/customers
+    - GET  https://secure-wms.com/customers/{customerId}/items
+    - GET  https://secure-wms.com/inventory
+    - GET  https://secure-wms.com/inventory/stockdetails
+    - GET  https://secure-wms.com/inventory/stocksummaries
+    - GET  https://secure-wms.com/inventory/facilities/{facilityId}/locations
+    - GET  https://secure-wms.com/orders
+  endpointsModeled:
+    - POST https://secure-wms.com/orders
+    - GET  https://secure-wms.com/orders/{orderId}
+    - GET  https://secure-wms.com/orders/{orderId}/packages
+    - GET  https://secure-wms.com/inventory/facilities
+    - GET  https://secure-wms.com/inventory/receivers
+    - POST https://secure-wms.com/inventory/receivers
+    - GET  https://secure-wms.com/inventory/receivers/{receiverId}
+sources:
+  - url: https://developer.3plcentral.com/
+    type: Documentation
+    note: 3PL Central REST APIs developer portal; base https://secure-wms.com, orders/inventory/receivers resources.
+  - url: https://developer.extensiv.com/pages/3pl-wareshouse-manager.html
+    type: APIReference
+    note: Extensiv-hosted 3PL Warehouse Manager API documentation gateway.
+  - url: https://help.extensiv.com/rest-api/providing-rest-api-access
+    type: Documentation
+    note: OAuth2 client-credentials setup, POST /AuthServer/api/Token, Base64 clientId:clientSecret, 30-60 min token lifetime, HTTPS only.
+  - url: https://github.com/singer-io/tap-3plcentral
+    type: SourceCode
+    note: Open-source Singer tap confirming GET customers, items, inventory, stockdetails, stocksummaries, facility locations, orders with pgnum/pgsiz + RQL + sort.
+  - url: https://www.extensiv.com/blog/3pl-central-wms-rest-api-feature
+    type: Blog
+    note: Extensiv "Give it a REST" post - common uses are creating and retrieving orders and retrieving inventory and stock summaries.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists, and 3PL Warehouse Manager's own public
+    API is request/response REST (SecureWMS) with an OAuth2 token endpoint. No
+    AsyncAPI document was created because there is no server-push transport
+    (WebSocket or SSE) on the product's own API to model. This entry is scoped to
+    the 3PL Warehouse Manager / SecureWMS API and is complementary to the broader
+    all/extensiv company entry.

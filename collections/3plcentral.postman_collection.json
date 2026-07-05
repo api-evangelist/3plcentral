@@ -1,0 +1,209 @@
+{
+  "info": {
+    "name": "3PL Warehouse Manager (SecureWMS) REST API",
+    "description": "Programmatic access to 3PL Warehouse Manager (Extensiv, formerly 3PL Central) via the SecureWMS REST API. Base URL: https://secure-wms.com. Auth is OAuth 2.0 client-credentials: Base64-encode clientId:clientSecret and POST it as a Basic Authorization header to /AuthServer/api/Token, then use the returned short-lived bearer token (typically valid 30-60 minutes) on all other calls. Collection endpoints are paged with pgnum/pgsiz and filterable with Resource Query Language (RQL). GET endpoints for customers, items, inventory, stock details, stock summaries, facility locations, and orders are confirmed; order creation, receivers (ASN), facilities, and order packages are documented and modeled here.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      { "key": "token", "value": "{{accessToken}}", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://secure-wms.com", "type": "string" },
+    { "key": "accessToken", "value": "", "type": "string" },
+    { "key": "basicAuth", "value": "", "type": "string" },
+    { "key": "customerId", "value": "", "type": "string" },
+    { "key": "facilityId", "value": "", "type": "string" },
+    { "key": "orderId", "value": "", "type": "string" },
+    { "key": "receiverId", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Get access token",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{clientId}}", "type": "string" },
+                { "key": "password", "value": "{{clientSecret}}", "type": "string" }
+              ]
+            },
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"grant_type\": \"client_credentials\",\n  \"user_login_id\": 0\n}" },
+            "url": { "raw": "{{baseUrl}}/AuthServer/api/Token", "host": ["{{baseUrl}}"], "path": ["AuthServer", "api", "Token"] },
+            "description": "Exchanges Base64-encoded client credentials for a short-lived bearer access token (client_credentials grant). Confirmed."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "List orders",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/orders?pgnum=1&pgsiz=200&sort=ReadOnly.lastModifiedDate", "host": ["{{baseUrl}}"], "path": ["orders"], "query": [{ "key": "pgnum", "value": "1" }, { "key": "pgsiz", "value": "200" }, { "key": "sort", "value": "ReadOnly.lastModifiedDate" }, { "key": "rql", "value": "", "disabled": true }] },
+            "description": "Lists outbound orders. Confirmed (GET /orders)."
+          }
+        },
+        {
+          "name": "Create an order",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"customerIdentifier\": { \"id\": 0 },\n  \"facilityIdentifier\": { \"id\": 0 },\n  \"referenceNum\": \"\",\n  \"shipTo\": { \"name\": \"\", \"address1\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\", \"country\": \"US\" },\n  \"orderItems\": [ { \"itemIdentifier\": { \"sku\": \"\" }, \"qty\": 1 } ]\n}" },
+            "url": { "raw": "{{baseUrl}}/orders", "host": ["{{baseUrl}}"], "path": ["orders"] },
+            "description": "Creates an outbound order. Documented (POST /orders); body modeled."
+          }
+        },
+        {
+          "name": "Retrieve an order",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/orders/:orderId", "host": ["{{baseUrl}}"], "path": ["orders", ":orderId"], "variable": [{ "key": "orderId", "value": "{{orderId}}" }] },
+            "description": "Retrieves a single order by id. Documented; response modeled."
+          }
+        },
+        {
+          "name": "Retrieve packages for an order",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/orders/:orderId/packages", "host": ["{{baseUrl}}"], "path": ["orders", ":orderId", "packages"], "variable": [{ "key": "orderId", "value": "{{orderId}}" }] },
+            "description": "Lists the packages (cartons) on a shipped order. Modeled sub-resource."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Items",
+      "item": [
+        {
+          "name": "List a customer's SKU items",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/customers/:customerId/items?pgnum=1&pgsiz=100&sort=ReadOnly.lastModifiedDate", "host": ["{{baseUrl}}"], "path": ["customers", ":customerId", "items"], "variable": [{ "key": "customerId", "value": "{{customerId}}" }], "query": [{ "key": "pgnum", "value": "1" }, { "key": "pgsiz", "value": "100" }, { "key": "sort", "value": "ReadOnly.lastModifiedDate" }] },
+            "description": "Lists SKU items for a customer. Confirmed (GET /customers/{id}/items)."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Inventory",
+      "item": [
+        {
+          "name": "Retrieve on-hand inventory",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/inventory?pgnum=1&pgsiz=200&sort=receivedDate", "host": ["{{baseUrl}}"], "path": ["inventory"], "query": [{ "key": "pgnum", "value": "1" }, { "key": "pgsiz", "value": "200" }, { "key": "sort", "value": "receivedDate" }] },
+            "description": "Retrieves inventory received on or before a point in time. Confirmed (GET /inventory)."
+          }
+        },
+        {
+          "name": "Retrieve stock details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/inventory/stockdetails?pgnum=1&pgsiz=100&sort=receivedDate", "host": ["{{baseUrl}}"], "path": ["inventory", "stockdetails"], "query": [{ "key": "pgnum", "value": "1" }, { "key": "pgsiz", "value": "100" }, { "key": "sort", "value": "receivedDate" }] },
+            "description": "Per-receive-line stock detail records. Confirmed (GET /inventory/stockdetails)."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Stock Summaries",
+      "item": [
+        {
+          "name": "Retrieve stock summaries",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/inventory/stocksummaries?pgnum=1&pgsiz=200", "host": ["{{baseUrl}}"], "path": ["inventory", "stocksummaries"], "query": [{ "key": "pgnum", "value": "1" }, { "key": "pgsiz", "value": "200" }] },
+            "description": "Rolled-up on-hand/available/allocated quantities under a Summaries property. Confirmed (GET /inventory/stocksummaries)."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Receivers",
+      "item": [
+        {
+          "name": "List receivers (ASN)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/inventory/receivers?pgnum=1&pgsiz=100", "host": ["{{baseUrl}}"], "path": ["inventory", "receivers"], "query": [{ "key": "pgnum", "value": "1" }, { "key": "pgsiz", "value": "100" }, { "key": "rql", "value": "", "disabled": true }] },
+            "description": "Lists inbound receivers (Advance Ship Notices). Documented (GET /inventory/receivers); response modeled."
+          }
+        },
+        {
+          "name": "Create a receiver (ASN)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"customerIdentifier\": { \"id\": 0 },\n  \"facilityIdentifier\": { \"id\": 0 },\n  \"referenceNum\": \"\",\n  \"expectedDate\": \"\",\n  \"receiveItems\": [ { \"itemIdentifier\": { \"sku\": \"\" }, \"qty\": 1 } ]\n}" },
+            "url": { "raw": "{{baseUrl}}/inventory/receivers", "host": ["{{baseUrl}}"], "path": ["inventory", "receivers"] },
+            "description": "Creates an inbound receiver (ASN). Documented (POST /inventory/receivers); body modeled."
+          }
+        },
+        {
+          "name": "Retrieve a receiver (ASN)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/inventory/receivers/:receiverId", "host": ["{{baseUrl}}"], "path": ["inventory", "receivers", ":receiverId"], "variable": [{ "key": "receiverId", "value": "{{receiverId}}" }] },
+            "description": "Retrieves a single receiver by id. Documented (GET /inventory/receivers/{id}); response modeled."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Customers",
+      "item": [
+        {
+          "name": "List customers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/customers?pgnum=1&pgsiz=100&sort=ReadOnly.CreationDate", "host": ["{{baseUrl}}"], "path": ["customers"], "query": [{ "key": "pgnum", "value": "1" }, { "key": "pgsiz", "value": "100" }, { "key": "sort", "value": "ReadOnly.CreationDate" }] },
+            "description": "Lists customers (merchants) in the warehouse. Confirmed (GET /customers)."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Warehouses",
+      "item": [
+        {
+          "name": "List warehouses / facilities",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/inventory/facilities?pgnum=1&pgsiz=100", "host": ["{{baseUrl}}"], "path": ["inventory", "facilities"], "query": [{ "key": "pgnum", "value": "1" }, { "key": "pgsiz", "value": "100" }] },
+            "description": "Lists facilities (warehouses). Documented parent of the confirmed locations resource; modeled."
+          }
+        },
+        {
+          "name": "List bin locations in a facility",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/inventory/facilities/:facilityId/locations?pgnum=1&pgsiz=200", "host": ["{{baseUrl}}"], "path": ["inventory", "facilities", ":facilityId", "locations"], "variable": [{ "key": "facilityId", "value": "{{facilityId}}" }], "query": [{ "key": "pgnum", "value": "1" }, { "key": "pgsiz", "value": "200" }] },
+            "description": "Lists bin/pick locations in a facility. Confirmed (GET /inventory/facilities/{id}/locations)."
+          }
+        }
+      ]
+    }
+  ]
+}

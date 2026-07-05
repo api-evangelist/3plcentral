@@ -1,0 +1,102 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: 3PL Warehouse Manager
+providerId: 3plcentral
+created: '2026-07-04'
+modified: '2026-07-04'
+reconciled: false
+tags:
+- Warehouse Management
+- WMS
+- 3PL
+- Logistics
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of 3PL Warehouse Manager (Extensiv, formerly 3PL Central) spend.
+  The product is a subscription SaaS WMS billed on a quote-based, contact-sales
+  basis - typically shaped by warehouse/customer volume, order and transaction
+  counts, enabled modules, and integrations - rather than by metered API calls.
+  The SecureWMS REST API is included in the subscription; deep technical API
+  onboarding is a separate paid Developer Enablement package. Because billing is
+  contractual rather than pay-per-request, the FinOps focus is allocating the
+  subscription across the customers/brands served in the warehouse and tracking
+  order/transaction volume against contracted tiers.
+notes: >-
+  Per-unit rates are not public; all pricing is contact-sales. Meters below are
+  the business drivers Extensiv contracts commonly key on (orders, transactions,
+  customers, integrations), not published billing meters. Reconcile with the
+  actual contract. This entry covers 3PL Warehouse Manager; the wider Extensiv
+  suite is tracked under all/extensiv.
+sources:
+- https://www.extensiv.com/3pl-warehouse-manager
+- https://developer.3plcentral.com/
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Extensiv
+serviceCategory: Warehouse Management (WMS)
+billingModel:
+  pricingCategory: Subscription
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Purchase
+  - Usage
+  - Adjustment
+focusColumns:
+  ServiceName: 3PL Warehouse Manager
+  ServiceCategory: Warehouse Management
+  ProviderName: Extensiv
+  PublisherName: Extensiv
+  InvoiceIssuerName: Extensiv
+  BillingCurrency: USD
+  ChargeCategory: Purchase
+  PricingCategory: Subscription
+meters:
+- name: orders
+  description: Outbound orders created/processed - a common contracted volume driver.
+  unit: orders
+  aggregation: sum
+  dimensions:
+  - account
+  - customer
+  - facility
+- name: transactions
+  description: Warehouse transactions (receipts, adjustments, shipments) processed.
+  unit: transactions
+  aggregation: sum
+  dimensions:
+  - account
+  - customer
+  - facility
+- name: customers
+  description: Number of customers/brands served in the warehouse (multi-tenant scope).
+  unit: customers
+  aggregation: max
+  dimensions:
+  - account
+- name: integrations
+  description: Number of connected sales channels, carriers, and systems.
+  unit: integrations
+  aggregation: max
+  dimensions:
+  - account
+principles:
+- name: Visibility
+  description: Track orders and transactions per customer and facility so the subscription cost maps to who and what is driving warehouse volume.
+- name: Allocation
+  description: Allocate the WMS subscription across the customers/brands served, using the multi-tenant customer boundary as the cost-center key.
+- name: Optimization
+  description: Consolidate integrations, right-size the contracted tier to actual order/transaction volume, and use RQL-filtered API pulls to avoid unnecessary processing.
+- name: Accountability
+  description: Assign owners per customer account; review order/transaction volume against contracted tiers ahead of renewal.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

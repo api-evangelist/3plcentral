@@ -1,0 +1,105 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: 3PL Warehouse Manager
+providerId: 3plcentral
+created: '2026-07-04'
+modified: '2026-07-04'
+reconciled: false
+tags:
+- Warehouse Management
+- WMS
+- 3PL
+- Logistics
+- Plans
+description: >-
+  3PL Warehouse Manager (Extensiv, formerly 3PL Central) is sold as a
+  subscription SaaS WMS with contact-sales, quote-based pricing rather than
+  public self-service tiers. Pricing is typically shaped by warehouse/customer
+  volume, transaction and order counts, modules, and integrations, and is
+  negotiated with Extensiv sales. The SecureWMS REST API is included with a
+  subscription, but deep technical API onboarding is offered as a separate paid
+  "Developer Enablement" package; general support only covers credential updates
+  and platform issues. No public list price or free tier is published for the
+  API itself.
+notes: >-
+  No public pricing page exists for the API; all tiers are contact-sales. The
+  plan entries below are honestly modeled from the sales-led, subscription +
+  optional-enablement structure described in Extensiv's documentation. Confirm
+  current terms with Extensiv sales during reconciliation. This entry covers the
+  3PL Warehouse Manager product; the broader Extensiv suite is tracked under
+  all/extensiv.
+sources:
+- https://www.extensiv.com/3pl-warehouse-manager
+- https://developer.3plcentral.com/
+- https://help.extensiv.com/rest-api/providing-rest-api-access
+plans:
+- id: subscription
+  name: 3PL Warehouse Manager Subscription
+  type: paid
+  description: >-
+    Quote-based SaaS subscription to 3PL Warehouse Manager. Includes access to
+    the SecureWMS REST API. Pricing scales with warehouse volume, customers,
+    orders/transactions, modules, and integrations.
+  entries:
+  - label: Platform Subscription
+    name: platform_subscription
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: contact sales (quote-based)
+    userMultiplied: false
+  elements:
+  - name: SecureWMS REST API Access
+  - name: Orders and Fulfillment
+  - name: Inventory and Stock Summaries
+  - name: Receivers / ASN
+  - name: Multi-Customer (Multi-Tenant) Warehousing
+- id: developer-enablement
+  name: Developer Enablement Package
+  type: paid
+  description: >-
+    Optional paid package providing hands-on technical API onboarding and
+    integration support. General support does not cover deep API development
+    guidance.
+  entries:
+  - label: Developer Enablement
+    name: developer_enablement
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: API Onboarding Support
+  - name: Integration Guidance
+- id: enterprise
+  name: Enterprise / Custom
+  type: enterprise
+  description: >-
+    Custom agreement for high-volume 3PLs - negotiated volume pricing, added
+    modules, SLAs, and premium support. Contact Extensiv.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Custom Volume Pricing
+  - name: SLAs and Premium Support
+  - name: Additional Modules and Integrations
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
