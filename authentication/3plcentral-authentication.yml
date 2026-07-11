@@ -1,0 +1,20 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/3plcentral-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: Short-lived access token from POST /AuthServer/api/Token.
+  sources:
+  - openapi/3plcentral-openapi.yml
+- name: basicAuth
+  type: http
+  scheme: basic
+  description: Base64-encoded "clientId:clientSecret" used only to obtain a token.
+  sources:
+  - openapi/3plcentral-openapi.yml

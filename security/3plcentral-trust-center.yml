@@ -1,0 +1,14 @@
+generated: '2026-07-11'
+method: searched
+probe: true
+source: https://trust.extensiv.com/
+url: https://trust.extensiv.com/
+certifications:
+- SOC 2
+- GDPR
+evidence:
+- source: https://trust.extensiv.com/
+  keywords:
+  - soc 2
+  - trust center
+  - gdpr

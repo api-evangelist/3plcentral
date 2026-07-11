@@ -205,6 +205,12 @@ apis:
     /orders/{orderId}/packages - carton dimensions, weights, tracking numbers, and
     contained items. Modeled from the documented order-packages sub-resource.
 common:
+- type: TrustCenter
+  url: security/3plcentral-trust-center.yml
+- type: DomainSecurity
+  url: security/3plcentral-domain-security.yml
+- type: Authentication
+  url: authentication/3plcentral-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/tpl-central
 - type: LinkedIn
