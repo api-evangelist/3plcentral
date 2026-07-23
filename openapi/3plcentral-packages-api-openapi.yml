@@ -1,0 +1,89 @@
+openapi: 3.0.3
+info:
+  title: 3PL Warehouse Manager (SecureWMS) REST Authentication Packages API
+  description: 'REST API for 3PL Warehouse Manager, the cloud warehouse management system (WMS) for third-party logistics providers, sold under Extensiv and historically known as "3PL Central". The public integration surface is the SecureWMS REST API served from https://secure-wms.com. It is used to create and retrieve orders, manage SKU items and inventory, read stock summaries and stock details, submit and track inbound receivers (Advance Ship Notices), and enumerate customers, warehouses/facilities, and locations.
+
+
+    Authentication is OAuth 2.0 client-credentials. Base64-encode "clientId:clientSecret" and POST it as a Basic Authorization header to /AuthServer/api/Token with a JSON body of {"grant_type":"client_credentials","user_login_id":<id>} (a user_login or user_login_id provided by the warehouse for auditing). The returned bearer access token is short-lived - typically valid 30 to 60 minutes - and should be refreshed at least every 30 minutes. All traffic must use HTTPS; plain HTTP is not supported.
+
+
+    Collection endpoints are paged with pgnum (page number) and pgsiz (page size) query parameters and can be filtered with Resource Query Language (RQL, http://api.3plcentral.com/rels/rql) via the rql parameter and ordered with sort. Responses are HAL-style JSON where list payloads carry records under a ResourceList (or Summaries for stock summaries) property.
+
+
+    Endpoint provenance: read (GET) endpoints for customers, items, inventory, stock details, stock summaries, facility locations, and orders are CONFIRMED against the public developer portal and the open-source singer-io tap-3plcentral extractor. Order creation, receiver (ASN) create/list/get, and the facilities and order-packages resources are documented in the 3PL Warehouse Manager developer portal; request/response shapes that are gated behind the authenticated developer portal are MODELED here honestly and marked per-operation with x-endpoint-status.'
+  version: '1.0'
+  contact:
+    name: Extensiv - 3PL Warehouse Manager Developer Community
+    url: https://developer.3plcentral.com/
+  license:
+    name: Proprietary
+    url: https://www.extensiv.com/legal
+servers:
+- url: https://secure-wms.com
+  description: 3PL Warehouse Manager (SecureWMS) production
+security:
+- bearerAuth: []
+tags:
+- name: Packages
+  description: Packages (cartons) on a shipped order.
+paths:
+  /orders/{orderId}/packages:
+    get:
+      operationId: getOrderPackages
+      tags:
+      - Packages
+      summary: Retrieve packages for an order
+      description: Lists the packages (cartons) on a shipped order - dimensions, weight, tracking numbers, and contained items. Order packages are a documented sub-resource of an order; the standalone shape is MODELED here.
+      x-endpoint-status: modeled
+      parameters:
+      - $ref: '#/components/parameters/orderId'
+      responses:
+        '200':
+          description: The order's packages.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  parameters:
+    orderId:
+      name: orderId
+      in: path
+      required: true
+      description: The order identifier.
+      schema:
+        type: integer
+  schemas:
+    ResourceListResponse:
+      type: object
+      description: HAL-style list payload. Records are carried under ResourceList.
+      properties:
+        TotalResults:
+          type: integer
+        ResourceList:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        _links:
+          type: object
+          additionalProperties: true
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+    Unauthorized:
+      description: Missing, invalid, or expired access token.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Short-lived access token from POST /AuthServer/api/Token.
+    basicAuth:
+      type: http
+      scheme: basic
+      description: Base64-encoded "clientId:clientSecret" used only to obtain a token.
