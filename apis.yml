@@ -14,7 +14,20 @@ description: 3PL Warehouse Manager is the flagship cloud warehouse management sy
   SecureWMS API specifically; the broader Extensiv company (which also spans
   Order Management, Integration Manager, Fulfillment Marketplace, and Warehouse
   Analytics) is tracked complementarily under the all/extensiv company entry.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/3plcentral.png
 tags:
 - Warehouse Management
 - WMS
@@ -29,181 +42,168 @@ created: '2026-07-04'
 modified: '2026-07-04'
 specificationVersion: '0.19'
 apis:
-- aid: 3plcentral:3plcentral-orders-api
-  name: 3PL Warehouse Manager Orders API
-  tags:
-  - Orders
-  - Fulfillment
-  - Outbound
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: 3plcentral:3plcentral-authentication-api
+  name: 3PL Warehouse Manager Authentication API
+  description: OAuth 2.0 client-credentials token issuance.
   humanURL: https://developer.3plcentral.com/
   baseURL: https://secure-wms.com
-  properties:
-  - url: https://developer.3plcentral.com/
-    type: Documentation
-  - url: https://developer.extensiv.com/pages/3pl-wareshouse-manager.html
-    type: APIReference
-  - url: openapi/3plcentral-openapi.yml
-    type: OpenAPI
-  - url: collections/3plcentral.postman_collection.json
-    type: PostmanCollection
-  - url: collections/3plcentral.opencollection.json
-    type: OpenCollection
-  description: Create, retrieve, and list outbound orders in 3PL Warehouse Manager -
-    the most common use of the SecureWMS API. Orders carry customer, ship-to,
-    line items, and shipping details; results are paged (pgsiz/pgnum) and filterable
-    with Resource Query Language (RQL).
-- aid: 3plcentral:3plcentral-items-api
-  name: 3PL Warehouse Manager Items API
   tags:
-  - Items
-  - SKUs
-  - Catalog
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.3plcentral.com/
-  baseURL: https://secure-wms.com
+  - Authentication
   properties:
-  - url: https://developer.3plcentral.com/
-    type: Documentation
-  - url: openapi/3plcentral-openapi.yml
-    type: OpenAPI
-  - url: collections/3plcentral.postman_collection.json
-    type: PostmanCollection
-  - url: collections/3plcentral.opencollection.json
-    type: OpenCollection
-  description: List and read the SKU items defined for a customer under
-    /customers/{customerId}/items. Items describe the goods a 3PL stores and ships
-    on behalf of each customer, and are paged and sortable (e.g. by last modified date).
-- aid: 3plcentral:3plcentral-inventory-api
-  name: 3PL Warehouse Manager Inventory API
-  tags:
-  - Inventory
-  - Stock Details
-  - Lots
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.3plcentral.com/
-  baseURL: https://secure-wms.com
-  properties:
-  - url: https://developer.3plcentral.com/
-    type: Documentation
-  - url: openapi/3plcentral-openapi.yml
-    type: OpenAPI
-  - url: collections/3plcentral.postman_collection.json
-    type: PostmanCollection
-  - url: collections/3plcentral.opencollection.json
-    type: OpenCollection
-  description: Retrieve on-hand inventory received on or before a point in time via
-    /inventory and per-receive-line stock details via /inventory/stockdetails.
-    Records include facility, item, lot, expiration, and received-date attributes,
-    paged and filterable with RQL.
-- aid: 3plcentral:3plcentral-stock-summaries-api
-  name: 3PL Warehouse Manager Stock Summaries API
-  tags:
-  - Stock Summaries
-  - Availability
-  - Inventory
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.3plcentral.com/
-  baseURL: https://secure-wms.com
-  properties:
-  - url: https://developer.3plcentral.com/
-    type: Documentation
-  - url: openapi/3plcentral-openapi.yml
-    type: OpenAPI
-  - url: collections/3plcentral.postman_collection.json
-    type: PostmanCollection
-  - url: collections/3plcentral.opencollection.json
-    type: OpenCollection
-  description: Read rolled-up stock summaries via /inventory/stocksummaries - aggregated
-    on-hand, available, allocated, and committed quantities keyed by facility and
-    item. The lightweight availability view used to drive channel listings and
-    reorder logic.
-- aid: 3plcentral:3plcentral-receivers-api
-  name: 3PL Warehouse Manager Receivers (ASN) API
-  tags:
-  - Receivers
-  - ASN
-  - Inbound
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.3plcentral.com/
-  baseURL: https://secure-wms.com
-  properties:
-  - url: https://developer.3plcentral.com/
-    type: Documentation
-  - url: openapi/3plcentral-openapi.yml
-    type: OpenAPI
-  - url: collections/3plcentral.postman_collection.json
-    type: PostmanCollection
-  - url: collections/3plcentral.opencollection.json
-    type: OpenCollection
-  description: Create and retrieve inbound receivers (Advance Ship Notices) via
-    /inventory/receivers - the expected inbound shipments a warehouse receives
-    against. Supports creating a receiver, listing receivers, and looking one up
-    by id (or by tracking/reference number via RQL).
+  - type: OpenAPI
+    url: openapi/3plcentral-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://developer.3plcentral.com/
+  - type: APIReference
+    url: https://developer.extensiv.com/pages/3pl-wareshouse-manager.html
+  - type: PostmanCollection
+    url: collections/3plcentral.postman_collection.json
+  - type: OpenCollection
+    url: collections/3plcentral.opencollection.json
 - aid: 3plcentral:3plcentral-customers-api
   name: 3PL Warehouse Manager Customers API
+  description: Customers (merchants) a 3PL fulfills for.
+  humanURL: https://developer.3plcentral.com/
+  baseURL: https://secure-wms.com
   tags:
   - Customers
-  - Accounts
-  - Multi-Tenant
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  properties:
+  - type: OpenAPI
+    url: openapi/3plcentral-customers-api-openapi.yml
+  - type: Documentation
+    url: https://developer.3plcentral.com/
+  - type: APIReference
+    url: https://developer.extensiv.com/pages/3pl-wareshouse-manager.html
+  - type: PostmanCollection
+    url: collections/3plcentral.postman_collection.json
+  - type: OpenCollection
+    url: collections/3plcentral.opencollection.json
+- aid: 3plcentral:3plcentral-inventory-api
+  name: 3PL Warehouse Manager Inventory API
+  description: On-hand inventory and per-receive stock details.
   humanURL: https://developer.3plcentral.com/
   baseURL: https://secure-wms.com
-  properties:
-  - url: https://developer.3plcentral.com/
-    type: Documentation
-  - url: openapi/3plcentral-openapi.yml
-    type: OpenAPI
-  - url: collections/3plcentral.postman_collection.json
-    type: PostmanCollection
-  - url: collections/3plcentral.opencollection.json
-    type: OpenCollection
-  description: List and read the customers (the brands/merchants a 3PL provides
-    fulfillment for) under /customers. Customers are the multi-tenant boundary that
-    scopes items, orders, and inventory within a warehouse.
-- aid: 3plcentral:3plcentral-warehouses-api
-  name: 3PL Warehouse Manager Warehouses API
   tags:
-  - Warehouses
-  - Facilities
-  - Locations
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  - Inventory
+  properties:
+  - type: OpenAPI
+    url: openapi/3plcentral-inventory-api-openapi.yml
+  - type: Documentation
+    url: https://developer.3plcentral.com/
+  - type: APIReference
+    url: https://developer.extensiv.com/pages/3pl-wareshouse-manager.html
+  - type: PostmanCollection
+    url: collections/3plcentral.postman_collection.json
+  - type: OpenCollection
+    url: collections/3plcentral.opencollection.json
+- aid: 3plcentral:3plcentral-items-api
+  name: 3PL Warehouse Manager Items API
+  description: Customer SKU items (catalog).
   humanURL: https://developer.3plcentral.com/
   baseURL: https://secure-wms.com
+  tags:
+  - Items
   properties:
-  - url: https://developer.3plcentral.com/
-    type: Documentation
-  - url: openapi/3plcentral-openapi.yml
-    type: OpenAPI
-  - url: collections/3plcentral.postman_collection.json
-    type: PostmanCollection
-  - url: collections/3plcentral.opencollection.json
-    type: OpenCollection
-  description: Enumerate warehouses/facilities and their bin locations via
-    /inventory/facilities and /inventory/facilities/{facilityId}/locations.
-    Facilities and locations are the physical topology that inventory, receivers,
-    and orders are placed and picked against.
+  - type: OpenAPI
+    url: openapi/3plcentral-items-api-openapi.yml
+  - type: Documentation
+    url: https://developer.3plcentral.com/
+  - type: APIReference
+    url: https://developer.extensiv.com/pages/3pl-wareshouse-manager.html
+  - type: PostmanCollection
+    url: collections/3plcentral.postman_collection.json
+  - type: OpenCollection
+    url: collections/3plcentral.opencollection.json
+- aid: 3plcentral:3plcentral-orders-api
+  name: 3PL Warehouse Manager Orders API
+  description: Outbound order creation and retrieval.
+  humanURL: https://developer.3plcentral.com/
+  baseURL: https://secure-wms.com
+  tags:
+  - Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/3plcentral-orders-api-openapi.yml
+  - type: Documentation
+    url: https://developer.3plcentral.com/
+  - type: APIReference
+    url: https://developer.extensiv.com/pages/3pl-wareshouse-manager.html
+  - type: PostmanCollection
+    url: collections/3plcentral.postman_collection.json
+  - type: OpenCollection
+    url: collections/3plcentral.opencollection.json
 - aid: 3plcentral:3plcentral-packages-api
   name: 3PL Warehouse Manager Packages API
-  tags:
-  - Packages
-  - Cartons
-  - Shipping
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  description: Packages (cartons) on a shipped order.
   humanURL: https://developer.3plcentral.com/
   baseURL: https://secure-wms.com
+  tags:
+  - Packages
   properties:
-  - url: https://developer.3plcentral.com/
-    type: Documentation
-  - url: openapi/3plcentral-openapi.yml
-    type: OpenAPI
-  - url: collections/3plcentral.postman_collection.json
-    type: PostmanCollection
-  - url: collections/3plcentral.opencollection.json
-    type: OpenCollection
-  description: Read the packages (cartons) associated with a shipped order via
-    /orders/{orderId}/packages - carton dimensions, weights, tracking numbers, and
-    contained items. Modeled from the documented order-packages sub-resource.
+  - type: OpenAPI
+    url: openapi/3plcentral-packages-api-openapi.yml
+  - type: Documentation
+    url: https://developer.3plcentral.com/
+  - type: APIReference
+    url: https://developer.extensiv.com/pages/3pl-wareshouse-manager.html
+  - type: PostmanCollection
+    url: collections/3plcentral.postman_collection.json
+  - type: OpenCollection
+    url: collections/3plcentral.opencollection.json
+- aid: 3plcentral:3plcentral-receivers-api
+  name: 3PL Warehouse Manager Receivers API
+  description: Inbound receivers (Advance Ship Notices).
+  humanURL: https://developer.3plcentral.com/
+  baseURL: https://secure-wms.com
+  tags:
+  - Receivers
+  properties:
+  - type: OpenAPI
+    url: openapi/3plcentral-receivers-api-openapi.yml
+  - type: Documentation
+    url: https://developer.3plcentral.com/
+  - type: APIReference
+    url: https://developer.extensiv.com/pages/3pl-wareshouse-manager.html
+  - type: PostmanCollection
+    url: collections/3plcentral.postman_collection.json
+  - type: OpenCollection
+    url: collections/3plcentral.opencollection.json
+- aid: 3plcentral:3plcentral-stock-summaries-api
+  name: 3PL Warehouse Manager Stock Summaries API
+  description: Rolled-up on-hand / available / allocated quantities.
+  humanURL: https://developer.3plcentral.com/
+  baseURL: https://secure-wms.com
+  tags:
+  - Stock Summaries
+  properties:
+  - type: OpenAPI
+    url: openapi/3plcentral-stock-summaries-api-openapi.yml
+  - type: Documentation
+    url: https://developer.3plcentral.com/
+  - type: APIReference
+    url: https://developer.extensiv.com/pages/3pl-wareshouse-manager.html
+  - type: PostmanCollection
+    url: collections/3plcentral.postman_collection.json
+  - type: OpenCollection
+    url: collections/3plcentral.opencollection.json
+- aid: 3plcentral:3plcentral-warehouses-api
+  name: 3PL Warehouse Manager Warehouses API
+  description: Facilities and their bin locations.
+  humanURL: https://developer.3plcentral.com/
+  baseURL: https://secure-wms.com
+  tags:
+  - Warehouses
+  properties:
+  - type: OpenAPI
+    url: openapi/3plcentral-warehouses-api-openapi.yml
+  - type: Documentation
+    url: https://developer.3plcentral.com/
+  - type: APIReference
+    url: https://developer.extensiv.com/pages/3pl-wareshouse-manager.html
+  - type: PostmanCollection
+    url: collections/3plcentral.postman_collection.json
+  - type: OpenCollection
+    url: collections/3plcentral.opencollection.json
 common:
 - type: AgenticAccess
   url: agentic-access/3plcentral-agentic-access.yml
