@@ -1,0 +1,30 @@
+{
+  "provider": "3plcentral",
+  "sources": [
+    "3plcentral-authentication-api-openapi.yml",
+    "3plcentral-customers-api-openapi.yml",
+    "3plcentral-inventory-api-openapi.yml",
+    "3plcentral-items-api-openapi.yml",
+    "3plcentral-orders-api-openapi.yml",
+    "3plcentral-packages-api-openapi.yml",
+    "3plcentral-receivers-api-openapi.yml",
+    "3plcentral-stock-summaries-api-openapi.yml",
+    "3plcentral-warehouses-api-openapi.yml"
+  ],
+  "outputs": [
+    "3plcentral-authentication-api-openapi.yml",
+    "3plcentral-customers-api-openapi.yml",
+    "3plcentral-inventory-api-openapi.yml",
+    "3plcentral-items-api-openapi.yml",
+    "3plcentral-orders-api-openapi.yml",
+    "3plcentral-packages-api-openapi.yml",
+    "3plcentral-receivers-api-openapi.yml",
+    "3plcentral-stock-summaries-api-openapi.yml",
+    "3plcentral-warehouses-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
