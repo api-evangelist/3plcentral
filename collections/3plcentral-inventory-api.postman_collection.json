@@ -1,0 +1,396 @@
+{
+  "item": [
+    {
+      "id": "a4c597f4-68f0-4b0d-b181-a9784c8d4f50",
+      "name": "Inventory",
+      "description": {
+        "content": "On-hand inventory and per-receive stock details.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "badc1bed-860f-4c28-9d55-557d7c8c56e5",
+          "name": "Retrieve on-hand inventory",
+          "request": {
+            "name": "Retrieve on-hand inventory",
+            "description": {
+              "content": "Retrieves inventory received on or before a point in time. Paged, filterable with rql, sortable by receivedDate. CONFIRMED (GET /inventory).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "inventory"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pgnum",
+                  "value": "1",
+                  "description": "Page number (1-based)."
+                },
+                {
+                  "disabled": false,
+                  "key": "pgsiz",
+                  "value": "100",
+                  "description": "Page size (records per page)."
+                },
+                {
+                  "disabled": false,
+                  "key": "rql",
+                  "value": "<string>",
+                  "description": "Resource Query Language filter, e.g. \"readonly.lastModifiedDate=ge=2024-01-01\". Reference http://api.3plcentral.com/rels/rql."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Field to sort by, e.g. ReadOnly.lastModifiedDate or receivedDate."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "da356705-75c5-4248-8fdc-173de3f17052",
+              "name": "A page of inventory records.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inventory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pgnum",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pgsiz",
+                      "value": "100"
+                    },
+                    {
+                      "key": "rql",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"TotalResults\": 1455,\n  \"ResourceList\": [\n    {\n      \"key_0\": \"string\"\n    },\n    {\n      \"key_0\": \"string\"\n    }\n  ],\n  \"_links\": {\n    \"key_0\": 1894\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "418631ef-d2a0-428c-966f-c3afb64116b5",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inventory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pgnum",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pgsiz",
+                      "value": "100"
+                    },
+                    {
+                      "key": "rql",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "90ec50e2-19db-4899-9465-ac603f8fc4df",
+          "name": "Retrieve stock details",
+          "request": {
+            "name": "Retrieve stock details",
+            "description": {
+              "content": "Per-receive-line stock detail records (facility, item, lot, expiration, received date, quantities). Paged/filterable/sortable by receivedDate. CONFIRMED (GET /inventory/stockdetails).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "inventory",
+                "stockdetails"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pgnum",
+                  "value": "1",
+                  "description": "Page number (1-based)."
+                },
+                {
+                  "disabled": false,
+                  "key": "pgsiz",
+                  "value": "100",
+                  "description": "Page size (records per page)."
+                },
+                {
+                  "disabled": false,
+                  "key": "rql",
+                  "value": "<string>",
+                  "description": "Resource Query Language filter, e.g. \"readonly.lastModifiedDate=ge=2024-01-01\". Reference http://api.3plcentral.com/rels/rql."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Field to sort by, e.g. ReadOnly.lastModifiedDate or receivedDate."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "98d6efcb-b082-409a-aa5c-52b4c216386b",
+              "name": "A page of stock detail records.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inventory",
+                    "stockdetails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pgnum",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pgsiz",
+                      "value": "100"
+                    },
+                    {
+                      "key": "rql",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"TotalResults\": 8843,\n  \"ResourceList\": [\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 7406.010097490332,\n      \"key_2\": false\n    },\n    {\n      \"key_0\": 3781.1631692743053,\n      \"key_1\": \"string\"\n    }\n  ],\n  \"_links\": {\n    \"key_0\": 5682\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "25391ebf-c75e-4750-8ff8-0efcfa984ec0",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inventory",
+                    "stockdetails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pgnum",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pgsiz",
+                      "value": "100"
+                    },
+                    {
+                      "key": "rql",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://secure-wms.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "69641361-b90f-4616-99bb-70796c07bda5",
+    "name": "3PL Warehouse Manager (SecureWMS) REST Authentication Inventory API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for 3PL Warehouse Manager, the cloud warehouse management system (WMS) for third-party logistics providers, sold under Extensiv and historically known as \"3PL Central\". The public integration surface is the SecureWMS REST API served from https://secure-wms.com. It is used to create and retrieve orders, manage SKU items and inventory, read stock summaries and stock details, submit and track inbound receivers (Advance Ship Notices), and enumerate customers, warehouses/facilities, and locations.\n\nAuthentication is OAuth 2.0 client-credentials. Base64-encode \"clientId:clientSecret\" and POST it as a Basic Authorization header to /AuthServer/api/Token with a JSON body of {\"grant_type\":\"client_credentials\",\"user_login_id\":<id>} (a user_login or user_login_id provided by the warehouse for auditing). The returned bearer access token is short-lived - typically valid 30 to 60 minutes - and should be refreshed at least every 30 minutes. All traffic must use HTTPS; plain HTTP is not supported.\n\nCollection endpoints are paged with pgnum (page number) and pgsiz (page size) query parameters and can be filtered with Resource Query Language (RQL, http://api.3plcentral.com/rels/rql) via the rql parameter and ordered with sort. Responses are HAL-style JSON where list payloads carry records under a ResourceList (or Summaries for stock summaries) property.\n\nEndpoint provenance: read (GET) endpoints for customers, items, inventory, stock details, stock summaries, facility locations, and orders are CONFIRMED against the public developer portal and the open-source singer-io tap-3plcentral extractor. Order creation, receiver (ASN) create/list/get, and the facilities and order-packages resources are documented in the 3PL Warehouse Manager developer portal; request/response shapes that are gated behind the authenticated developer portal are MODELED here honestly and marked per-operation with x-endpoint-status.\n\nContact Support:\n Name: Extensiv - 3PL Warehouse Manager Developer Community",
+      "type": "text/plain"
+    }
+  }
+}

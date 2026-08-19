@@ -1,0 +1,206 @@
+{
+  "item": [
+    {
+      "id": "cdc7345b-c555-4ce0-b027-ca5625d4024a",
+      "name": "Stock Summaries",
+      "description": {
+        "content": "Rolled-up on-hand / available / allocated quantities.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c60e1b5d-7ab6-4aa1-9da5-3972918fdc25",
+          "name": "Retrieve stock summaries",
+          "request": {
+            "name": "Retrieve stock summaries",
+            "description": {
+              "content": "Rolled-up on-hand / available / allocated / committed quantities keyed by facility and item. List payload is carried under a Summaries property. CONFIRMED (GET /inventory/stocksummaries).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "inventory",
+                "stocksummaries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pgnum",
+                  "value": "1",
+                  "description": "Page number (1-based)."
+                },
+                {
+                  "disabled": false,
+                  "key": "pgsiz",
+                  "value": "100",
+                  "description": "Page size (records per page)."
+                },
+                {
+                  "disabled": false,
+                  "key": "rql",
+                  "value": "<string>",
+                  "description": "Resource Query Language filter, e.g. \"readonly.lastModifiedDate=ge=2024-01-01\". Reference http://api.3plcentral.com/rels/rql."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "02c5c78f-dbb4-4523-9702-32a3f14adb50",
+              "name": "A page of stock summaries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inventory",
+                    "stocksummaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pgnum",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pgsiz",
+                      "value": "100"
+                    },
+                    {
+                      "key": "rql",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"TotalResults\": 5037,\n  \"Summaries\": [\n    {\n      \"FacilityId\": 2833,\n      \"ItemId\": 153,\n      \"Sku\": \"string\",\n      \"OnHand\": 3637.014709444748,\n      \"Available\": 1974.635735779764,\n      \"Allocated\": 257.17175461021145,\n      \"Committed\": 6992.359889462326\n    },\n    {\n      \"FacilityId\": 1588,\n      \"ItemId\": 6801,\n      \"Sku\": \"string\",\n      \"OnHand\": 5034.930384931496,\n      \"Available\": 4799.6334556838065,\n      \"Allocated\": 8554.229502745713,\n      \"Committed\": 6444.696909890822\n    }\n  ],\n  \"_links\": {\n    \"key_0\": 9217.232178655819,\n    \"key_1\": \"string\",\n    \"key_2\": 1868,\n    \"key_3\": 9795.331143144418\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "897ca90a-87b1-4423-8ed9-72852a4474a3",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inventory",
+                    "stocksummaries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pgnum",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pgsiz",
+                      "value": "100"
+                    },
+                    {
+                      "key": "rql",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://secure-wms.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "dbf4fe7b-7964-45ea-a97d-7de8c7d18d4f",
+    "name": "3PL Warehouse Manager (SecureWMS) REST Authentication Stock Summaries API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for 3PL Warehouse Manager, the cloud warehouse management system (WMS) for third-party logistics providers, sold under Extensiv and historically known as \"3PL Central\". The public integration surface is the SecureWMS REST API served from https://secure-wms.com. It is used to create and retrieve orders, manage SKU items and inventory, read stock summaries and stock details, submit and track inbound receivers (Advance Ship Notices), and enumerate customers, warehouses/facilities, and locations.\n\nAuthentication is OAuth 2.0 client-credentials. Base64-encode \"clientId:clientSecret\" and POST it as a Basic Authorization header to /AuthServer/api/Token with a JSON body of {\"grant_type\":\"client_credentials\",\"user_login_id\":<id>} (a user_login or user_login_id provided by the warehouse for auditing). The returned bearer access token is short-lived - typically valid 30 to 60 minutes - and should be refreshed at least every 30 minutes. All traffic must use HTTPS; plain HTTP is not supported.\n\nCollection endpoints are paged with pgnum (page number) and pgsiz (page size) query parameters and can be filtered with Resource Query Language (RQL, http://api.3plcentral.com/rels/rql) via the rql parameter and ordered with sort. Responses are HAL-style JSON where list payloads carry records under a ResourceList (or Summaries for stock summaries) property.\n\nEndpoint provenance: read (GET) endpoints for customers, items, inventory, stock details, stock summaries, facility locations, and orders are CONFIRMED against the public developer portal and the open-source singer-io tap-3plcentral extractor. Order creation, receiver (ASN) create/list/get, and the facilities and order-packages resources are documented in the 3PL Warehouse Manager developer portal; request/response shapes that are gated behind the authenticated developer portal are MODELED here honestly and marked per-operation with x-endpoint-status.\n\nContact Support:\n Name: Extensiv - 3PL Warehouse Manager Developer Community",
+      "type": "text/plain"
+    }
+  }
+}

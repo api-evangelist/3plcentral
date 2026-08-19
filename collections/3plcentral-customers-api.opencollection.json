@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "3PL Warehouse Manager (SecureWMS) REST Authentication Customers API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Customers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List customers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure-wms.com/customers",
+            "params": [
+              {
+                "name": "pgnum",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based)."
+              },
+              {
+                "name": "pgsiz",
+                "value": "",
+                "type": "query",
+                "description": "Page size (records per page)."
+              },
+              {
+                "name": "rql",
+                "value": "",
+                "type": "query",
+                "description": "Resource Query Language filter, e.g. \"readonly.lastModifiedDate=ge=2024-01-01\". Reference http://api.3plcentral.com/rels/rql."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by, e.g. ReadOnly.lastModifiedDate or receivedDate."
+              }
+            ]
+          },
+          "docs": "Lists the customers (merchants) configured in the warehouse. Paged with pgnum/pgsiz, filterable with rql, sortable (e.g. ReadOnly.CreationDate). CONFIRMED (GET /customers)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

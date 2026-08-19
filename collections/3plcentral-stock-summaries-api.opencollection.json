@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "3PL Warehouse Manager (SecureWMS) REST Authentication Stock Summaries API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Stock Summaries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve stock summaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure-wms.com/inventory/stocksummaries",
+            "params": [
+              {
+                "name": "pgnum",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based)."
+              },
+              {
+                "name": "pgsiz",
+                "value": "",
+                "type": "query",
+                "description": "Page size (records per page)."
+              },
+              {
+                "name": "rql",
+                "value": "",
+                "type": "query",
+                "description": "Resource Query Language filter, e.g. \"readonly.lastModifiedDate=ge=2024-01-01\". Reference http://api.3plcentral.com/rels/rql."
+              }
+            ]
+          },
+          "docs": "Rolled-up on-hand / available / allocated / committed quantities keyed by facility and item. List payload is carried under a Summaries property. CONFIRMED (GET /inventory/stocksummaries)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

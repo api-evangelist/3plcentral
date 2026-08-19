@@ -1,0 +1,95 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "3PL Warehouse Manager (SecureWMS) REST Authentication Orders API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure-wms.com/orders",
+            "params": [
+              {
+                "name": "pgnum",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based)."
+              },
+              {
+                "name": "pgsiz",
+                "value": "",
+                "type": "query",
+                "description": "Page size (records per page)."
+              },
+              {
+                "name": "rql",
+                "value": "",
+                "type": "query",
+                "description": "Resource Query Language filter, e.g. \"readonly.lastModifiedDate=ge=2024-01-01\". Reference http://api.3plcentral.com/rels/rql."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by, e.g. ReadOnly.lastModifiedDate or receivedDate."
+              }
+            ]
+          },
+          "docs": "Lists outbound orders. Paged, filterable with rql, sortable by ReadOnly.lastModifiedDate. CONFIRMED (GET /orders)."
+        },
+        {
+          "info": {
+            "name": "Create an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://secure-wms.com/orders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an outbound order (customer, ship-to, line items, shipping instructions). Creating and retrieving orders is the most common use of the API. DOCUMENTED in the developer portal (POST /orders); request body is MODELED here."
+        },
+        {
+          "info": {
+            "name": "Retrieve an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure-wms.com/orders/:orderId",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "The order identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves a single order by id. DOCUMENTED in the developer portal; response is MODELED here."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

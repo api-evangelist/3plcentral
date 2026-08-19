@@ -1,0 +1,237 @@
+{
+  "item": [
+    {
+      "id": "0f2ee38a-a9e0-497b-8aae-f9e054fa6b3b",
+      "name": "Packages",
+      "description": {
+        "content": "Packages (cartons) on a shipped order.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ae87fbe4-5dcf-43f6-bde7-aa44654e1fcf",
+          "name": "Retrieve packages for an order",
+          "request": {
+            "name": "Retrieve packages for an order",
+            "description": {
+              "content": "Lists the packages (cartons) on a shipped order - dimensions, weight, tracking numbers, and contained items. Order packages are a documented sub-resource of an order; the standalone shape is MODELED here.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":orderId",
+                "packages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "orderId",
+                  "description": "(Required) The order identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "50e73de9-acbe-4cc8-a55a-ab691899b98b",
+              "name": "The order's packages.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId",
+                    "packages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "orderId",
+                      "description": "(Required) The order identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"TotalResults\": 5621,\n  \"ResourceList\": [\n    {\n      \"key_0\": true\n    },\n    {\n      \"key_0\": 1088.1015440246101\n    }\n  ],\n  \"_links\": {\n    \"key_0\": false,\n    \"key_1\": 8312,\n    \"key_2\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3252d137-33d1-4004-a6d5-27a0d4cd69a7",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId",
+                    "packages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "orderId",
+                      "description": "(Required) The order identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "17617ab2-977f-4bbb-ba58-3342beea4a54",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId",
+                    "packages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "orderId",
+                      "description": "(Required) The order identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://secure-wms.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "dad1257f-3b0c-405b-a00a-9c081d86cc43",
+    "name": "3PL Warehouse Manager (SecureWMS) REST Authentication Packages API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for 3PL Warehouse Manager, the cloud warehouse management system (WMS) for third-party logistics providers, sold under Extensiv and historically known as \"3PL Central\". The public integration surface is the SecureWMS REST API served from https://secure-wms.com. It is used to create and retrieve orders, manage SKU items and inventory, read stock summaries and stock details, submit and track inbound receivers (Advance Ship Notices), and enumerate customers, warehouses/facilities, and locations.\n\nAuthentication is OAuth 2.0 client-credentials. Base64-encode \"clientId:clientSecret\" and POST it as a Basic Authorization header to /AuthServer/api/Token with a JSON body of {\"grant_type\":\"client_credentials\",\"user_login_id\":<id>} (a user_login or user_login_id provided by the warehouse for auditing). The returned bearer access token is short-lived - typically valid 30 to 60 minutes - and should be refreshed at least every 30 minutes. All traffic must use HTTPS; plain HTTP is not supported.\n\nCollection endpoints are paged with pgnum (page number) and pgsiz (page size) query parameters and can be filtered with Resource Query Language (RQL, http://api.3plcentral.com/rels/rql) via the rql parameter and ordered with sort. Responses are HAL-style JSON where list payloads carry records under a ResourceList (or Summaries for stock summaries) property.\n\nEndpoint provenance: read (GET) endpoints for customers, items, inventory, stock details, stock summaries, facility locations, and orders are CONFIRMED against the public developer portal and the open-source singer-io tap-3plcentral extractor. Order creation, receiver (ASN) create/list/get, and the facilities and order-packages resources are documented in the 3PL Warehouse Manager developer portal; request/response shapes that are gated behind the authenticated developer portal are MODELED here honestly and marked per-operation with x-endpoint-status.\n\nContact Support:\n Name: Extensiv - 3PL Warehouse Manager Developer Community",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,602 @@
+{
+  "item": [
+    {
+      "id": "1f4f16ee-cbb0-4d6a-851f-e09ef5bc3dc8",
+      "name": "Orders",
+      "description": {
+        "content": "Outbound order creation and retrieval.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "afbfcc8b-1ff4-4f55-8e48-96772cf91588",
+          "name": "List orders",
+          "request": {
+            "name": "List orders",
+            "description": {
+              "content": "Lists outbound orders. Paged, filterable with rql, sortable by ReadOnly.lastModifiedDate. CONFIRMED (GET /orders).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pgnum",
+                  "value": "1",
+                  "description": "Page number (1-based)."
+                },
+                {
+                  "disabled": false,
+                  "key": "pgsiz",
+                  "value": "100",
+                  "description": "Page size (records per page)."
+                },
+                {
+                  "disabled": false,
+                  "key": "rql",
+                  "value": "<string>",
+                  "description": "Resource Query Language filter, e.g. \"readonly.lastModifiedDate=ge=2024-01-01\". Reference http://api.3plcentral.com/rels/rql."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Field to sort by, e.g. ReadOnly.lastModifiedDate or receivedDate."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "67bdfbc7-499e-4968-9dea-a1353383e76f",
+              "name": "A page of orders.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pgnum",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pgsiz",
+                      "value": "100"
+                    },
+                    {
+                      "key": "rql",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"TotalResults\": 9978,\n  \"ResourceList\": [\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 2935,\n      \"key_2\": \"string\"\n    },\n    {\n      \"key_0\": false\n    }\n  ],\n  \"_links\": {\n    \"key_0\": false,\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9fa687b6-4730-4cd2-8a4b-ea9baba93881",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pgnum",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pgsiz",
+                      "value": "100"
+                    },
+                    {
+                      "key": "rql",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2b22c1ba-b175-467a-b4cc-928d7f87d2f3",
+          "name": "Create an order",
+          "request": {
+            "name": "Create an order",
+            "description": {
+              "content": "Creates an outbound order (customer, ship-to, line items, shipping instructions). Creating and retrieving orders is the most common use of the API. DOCUMENTED in the developer portal (POST /orders); request body is MODELED here.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"CustomerIdentifier\": {\n    \"Id\": \"<integer>\",\n    \"Name\": \"<string>\"\n  },\n  \"OrderItems\": [\n    {\n      \"ItemIdentifier\": {\n        \"Id\": \"<integer>\",\n        \"Sku\": \"<string>\"\n      },\n      \"Qty\": \"<number>\",\n      \"SecondaryQty\": \"<number>\"\n    },\n    {\n      \"ItemIdentifier\": {\n        \"Id\": \"<integer>\",\n        \"Sku\": \"<string>\"\n      },\n      \"Qty\": \"<number>\",\n      \"SecondaryQty\": \"<number>\"\n    }\n  ],\n  \"FacilityIdentifier\": {\n    \"Id\": \"<integer>\",\n    \"Name\": \"<string>\"\n  },\n  \"ReferenceNum\": \"<string>\",\n  \"PoNum\": \"<string>\",\n  \"ShipTo\": {\n    \"Name\": \"<string>\",\n    \"Address1\": \"<string>\",\n    \"Address2\": \"<string>\",\n    \"City\": \"<string>\",\n    \"State\": \"<string>\",\n    \"Zip\": \"<string>\",\n    \"Country\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2ac0e555-f4ef-4088-8905-e2d0d4bb1d6b",
+              "name": "The created order.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"CustomerIdentifier\": {\n    \"Id\": \"<integer>\",\n    \"Name\": \"<string>\"\n  },\n  \"OrderItems\": [\n    {\n      \"ItemIdentifier\": {\n        \"Id\": \"<integer>\",\n        \"Sku\": \"<string>\"\n      },\n      \"Qty\": \"<number>\",\n      \"SecondaryQty\": \"<number>\"\n    },\n    {\n      \"ItemIdentifier\": {\n        \"Id\": \"<integer>\",\n        \"Sku\": \"<string>\"\n      },\n      \"Qty\": \"<number>\",\n      \"SecondaryQty\": \"<number>\"\n    }\n  ],\n  \"FacilityIdentifier\": {\n    \"Id\": \"<integer>\",\n    \"Name\": \"<string>\"\n  },\n  \"ReferenceNum\": \"<string>\",\n  \"PoNum\": \"<string>\",\n  \"ShipTo\": {\n    \"Name\": \"<string>\",\n    \"Address1\": \"<string>\",\n    \"Address2\": \"<string>\",\n    \"City\": \"<string>\",\n    \"State\": \"<string>\",\n    \"Zip\": \"<string>\",\n    \"Country\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"CustomerIdentifier\": {\n    \"Id\": \"<integer>\",\n    \"Name\": \"<string>\"\n  },\n  \"OrderItems\": [\n    {\n      \"ItemIdentifier\": {\n        \"Id\": \"<integer>\",\n        \"Sku\": \"<string>\"\n      },\n      \"Qty\": \"<number>\",\n      \"SecondaryQty\": \"<number>\"\n    },\n    {\n      \"ItemIdentifier\": {\n        \"Id\": \"<integer>\",\n        \"Sku\": \"<string>\"\n      },\n      \"Qty\": \"<number>\",\n      \"SecondaryQty\": \"<number>\"\n    }\n  ],\n  \"FacilityIdentifier\": {\n    \"Id\": \"<integer>\",\n    \"Name\": \"<string>\"\n  },\n  \"ReferenceNum\": \"<string>\",\n  \"PoNum\": \"<string>\",\n  \"ShipTo\": {\n    \"Name\": \"<string>\",\n    \"Address1\": \"<string>\",\n    \"Address2\": \"<string>\",\n    \"City\": \"<string>\",\n    \"State\": \"<string>\",\n    \"Zip\": \"<string>\",\n    \"Country\": \"<string>\"\n  },\n  \"OrderId\": 5887,\n  \"ReadOnly\": {\n    \"key_0\": \"string\",\n    \"key_1\": 1086.422893445086\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3c47af6-d1a1-4511-8588-8cc229949466",
+              "name": "The request payload failed validation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"CustomerIdentifier\": {\n    \"Id\": \"<integer>\",\n    \"Name\": \"<string>\"\n  },\n  \"OrderItems\": [\n    {\n      \"ItemIdentifier\": {\n        \"Id\": \"<integer>\",\n        \"Sku\": \"<string>\"\n      },\n      \"Qty\": \"<number>\",\n      \"SecondaryQty\": \"<number>\"\n    },\n    {\n      \"ItemIdentifier\": {\n        \"Id\": \"<integer>\",\n        \"Sku\": \"<string>\"\n      },\n      \"Qty\": \"<number>\",\n      \"SecondaryQty\": \"<number>\"\n    }\n  ],\n  \"FacilityIdentifier\": {\n    \"Id\": \"<integer>\",\n    \"Name\": \"<string>\"\n  },\n  \"ReferenceNum\": \"<string>\",\n  \"PoNum\": \"<string>\",\n  \"ShipTo\": {\n    \"Name\": \"<string>\",\n    \"Address1\": \"<string>\",\n    \"Address2\": \"<string>\",\n    \"City\": \"<string>\",\n    \"State\": \"<string>\",\n    \"Zip\": \"<string>\",\n    \"Country\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ae040657-2553-4409-b34e-b5f8f151cdb2",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"CustomerIdentifier\": {\n    \"Id\": \"<integer>\",\n    \"Name\": \"<string>\"\n  },\n  \"OrderItems\": [\n    {\n      \"ItemIdentifier\": {\n        \"Id\": \"<integer>\",\n        \"Sku\": \"<string>\"\n      },\n      \"Qty\": \"<number>\",\n      \"SecondaryQty\": \"<number>\"\n    },\n    {\n      \"ItemIdentifier\": {\n        \"Id\": \"<integer>\",\n        \"Sku\": \"<string>\"\n      },\n      \"Qty\": \"<number>\",\n      \"SecondaryQty\": \"<number>\"\n    }\n  ],\n  \"FacilityIdentifier\": {\n    \"Id\": \"<integer>\",\n    \"Name\": \"<string>\"\n  },\n  \"ReferenceNum\": \"<string>\",\n  \"PoNum\": \"<string>\",\n  \"ShipTo\": {\n    \"Name\": \"<string>\",\n    \"Address1\": \"<string>\",\n    \"Address2\": \"<string>\",\n    \"City\": \"<string>\",\n    \"State\": \"<string>\",\n    \"Zip\": \"<string>\",\n    \"Country\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e7654d38-5ca1-4c59-ab25-7c484a5d53ea",
+          "name": "Retrieve an order",
+          "request": {
+            "name": "Retrieve an order",
+            "description": {
+              "content": "Retrieves a single order by id. DOCUMENTED in the developer portal; response is MODELED here.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":orderId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "orderId",
+                  "description": "(Required) The order identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6c36bd9c-a97d-4242-9a17-6e77dc88ac99",
+              "name": "The order.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "orderId",
+                      "description": "(Required) The order identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"CustomerIdentifier\": {\n    \"Id\": \"<integer>\",\n    \"Name\": \"<string>\"\n  },\n  \"OrderItems\": [\n    {\n      \"ItemIdentifier\": {\n        \"Id\": \"<integer>\",\n        \"Sku\": \"<string>\"\n      },\n      \"Qty\": \"<number>\",\n      \"SecondaryQty\": \"<number>\"\n    },\n    {\n      \"ItemIdentifier\": {\n        \"Id\": \"<integer>\",\n        \"Sku\": \"<string>\"\n      },\n      \"Qty\": \"<number>\",\n      \"SecondaryQty\": \"<number>\"\n    }\n  ],\n  \"FacilityIdentifier\": {\n    \"Id\": \"<integer>\",\n    \"Name\": \"<string>\"\n  },\n  \"ReferenceNum\": \"<string>\",\n  \"PoNum\": \"<string>\",\n  \"ShipTo\": {\n    \"Name\": \"<string>\",\n    \"Address1\": \"<string>\",\n    \"Address2\": \"<string>\",\n    \"City\": \"<string>\",\n    \"State\": \"<string>\",\n    \"Zip\": \"<string>\",\n    \"Country\": \"<string>\"\n  },\n  \"OrderId\": 5887,\n  \"ReadOnly\": {\n    \"key_0\": \"string\",\n    \"key_1\": 1086.422893445086\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d47cb3df-1dd1-4f59-ae10-7fe81a975ac3",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "orderId",
+                      "description": "(Required) The order identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bb60ca38-71c7-4cc7-b0f8-f3a531473d61",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "orderId",
+                      "description": "(Required) The order identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://secure-wms.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3529bae9-4ed0-47a8-8515-eb0eb8732a12",
+    "name": "3PL Warehouse Manager (SecureWMS) REST Authentication Orders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for 3PL Warehouse Manager, the cloud warehouse management system (WMS) for third-party logistics providers, sold under Extensiv and historically known as \"3PL Central\". The public integration surface is the SecureWMS REST API served from https://secure-wms.com. It is used to create and retrieve orders, manage SKU items and inventory, read stock summaries and stock details, submit and track inbound receivers (Advance Ship Notices), and enumerate customers, warehouses/facilities, and locations.\n\nAuthentication is OAuth 2.0 client-credentials. Base64-encode \"clientId:clientSecret\" and POST it as a Basic Authorization header to /AuthServer/api/Token with a JSON body of {\"grant_type\":\"client_credentials\",\"user_login_id\":<id>} (a user_login or user_login_id provided by the warehouse for auditing). The returned bearer access token is short-lived - typically valid 30 to 60 minutes - and should be refreshed at least every 30 minutes. All traffic must use HTTPS; plain HTTP is not supported.\n\nCollection endpoints are paged with pgnum (page number) and pgsiz (page size) query parameters and can be filtered with Resource Query Language (RQL, http://api.3plcentral.com/rels/rql) via the rql parameter and ordered with sort. Responses are HAL-style JSON where list payloads carry records under a ResourceList (or Summaries for stock summaries) property.\n\nEndpoint provenance: read (GET) endpoints for customers, items, inventory, stock details, stock summaries, facility locations, and orders are CONFIRMED against the public developer portal and the open-source singer-io tap-3plcentral extractor. Order creation, receiver (ASN) create/list/get, and the facilities and order-packages resources are documented in the 3PL Warehouse Manager developer portal; request/response shapes that are gated behind the authenticated developer portal are MODELED here honestly and marked per-operation with x-endpoint-status.\n\nContact Support:\n Name: Extensiv - 3PL Warehouse Manager Developer Community",
+      "type": "text/plain"
+    }
+  }
+}

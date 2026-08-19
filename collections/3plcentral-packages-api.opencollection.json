@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "3PL Warehouse Manager (SecureWMS) REST Authentication Packages API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Packages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve packages for an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure-wms.com/orders/:orderId/packages",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "The order identifier."
+              }
+            ]
+          },
+          "docs": "Lists the packages (cartons) on a shipped order - dimensions, weight, tracking numbers, and contained items. Order packages are a documented sub-resource of an order; the standalone shape is MODELED here."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

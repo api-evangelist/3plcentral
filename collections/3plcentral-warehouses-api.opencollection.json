@@ -1,0 +1,92 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "3PL Warehouse Manager (SecureWMS) REST Authentication Warehouses API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Warehouses",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List warehouses / facilities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure-wms.com/inventory/facilities",
+            "params": [
+              {
+                "name": "pgnum",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based)."
+              },
+              {
+                "name": "pgsiz",
+                "value": "",
+                "type": "query",
+                "description": "Page size (records per page)."
+              },
+              {
+                "name": "rql",
+                "value": "",
+                "type": "query",
+                "description": "Resource Query Language filter, e.g. \"readonly.lastModifiedDate=ge=2024-01-01\". Reference http://api.3plcentral.com/rels/rql."
+              }
+            ]
+          },
+          "docs": "Lists the physical facilities (warehouses) in the account. DOCUMENTED in the developer portal; the facilities collection is the parent of the CONFIRMED /inventory/facilities/{facilityId}/locations resource. MODELED."
+        },
+        {
+          "info": {
+            "name": "List bin locations in a facility",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure-wms.com/inventory/facilities/:facilityId/locations",
+            "params": [
+              {
+                "name": "facilityId",
+                "value": "",
+                "type": "path",
+                "description": "The facility (warehouse) identifier."
+              },
+              {
+                "name": "pgnum",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based)."
+              },
+              {
+                "name": "pgsiz",
+                "value": "",
+                "type": "query",
+                "description": "Page size (records per page)."
+              },
+              {
+                "name": "rql",
+                "value": "",
+                "type": "query",
+                "description": "Resource Query Language filter, e.g. \"readonly.lastModifiedDate=ge=2024-01-01\". Reference http://api.3plcentral.com/rels/rql."
+              }
+            ]
+          },
+          "docs": "Lists the bin/pick locations within a facility. Paged/filterable. CONFIRMED (GET /inventory/facilities/{facilityId}/locations)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

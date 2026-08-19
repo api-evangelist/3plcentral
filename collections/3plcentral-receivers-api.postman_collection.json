@@ -1,0 +1,599 @@
+{
+  "item": [
+    {
+      "id": "03333e67-cf99-419c-97e5-189db4d09fd7",
+      "name": "Receivers",
+      "description": {
+        "content": "Inbound receivers (Advance Ship Notices).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f95e4b6e-2c2b-44cd-9261-d7e5c54d88b9",
+          "name": "List receivers (ASN)",
+          "request": {
+            "name": "List receivers (ASN)",
+            "description": {
+              "content": "Lists inbound receivers (Advance Ship Notices). A receiver can be looked up by tracking/reference number via rql. DOCUMENTED (GET /inventory/receivers); response is MODELED here.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "inventory",
+                "receivers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pgnum",
+                  "value": "1",
+                  "description": "Page number (1-based)."
+                },
+                {
+                  "disabled": false,
+                  "key": "pgsiz",
+                  "value": "100",
+                  "description": "Page size (records per page)."
+                },
+                {
+                  "disabled": false,
+                  "key": "rql",
+                  "value": "<string>",
+                  "description": "Resource Query Language filter, e.g. \"readonly.lastModifiedDate=ge=2024-01-01\". Reference http://api.3plcentral.com/rels/rql."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0f07622d-ba09-4d8f-b2a1-b43949fae372",
+              "name": "A page of receivers.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inventory",
+                    "receivers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pgnum",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pgsiz",
+                      "value": "100"
+                    },
+                    {
+                      "key": "rql",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"TotalResults\": 1321,\n  \"ResourceList\": [\n    {\n      \"key_0\": 3986,\n      \"key_1\": 6994.682980377211,\n      \"key_2\": 6930\n    },\n    {\n      \"key_0\": 4419\n    }\n  ],\n  \"_links\": {\n    \"key_0\": 7113.190248507536\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dbd796a2-a25a-4817-88a4-dcf8ac9ecefb",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inventory",
+                    "receivers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pgnum",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pgsiz",
+                      "value": "100"
+                    },
+                    {
+                      "key": "rql",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "515fed98-494c-45ba-9d51-826d8ab8bd34",
+          "name": "Create a receiver (ASN)",
+          "request": {
+            "name": "Create a receiver (ASN)",
+            "description": {
+              "content": "Creates an inbound receiver (Advance Ship Notice) the warehouse will receive goods against. DOCUMENTED (POST /inventory/receivers); request body is MODELED here.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "inventory",
+                "receivers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"CustomerIdentifier\": {\n    \"Id\": \"<integer>\",\n    \"Name\": \"<string>\"\n  },\n  \"FacilityIdentifier\": {\n    \"Id\": \"<integer>\",\n    \"Name\": \"<string>\"\n  },\n  \"ReferenceNum\": \"<string>\",\n  \"PoNum\": \"<string>\",\n  \"ExpectedDate\": \"<dateTime>\",\n  \"ReceiveItems\": [\n    {\n      \"ItemIdentifier\": {\n        \"Id\": \"<integer>\",\n        \"Sku\": \"<string>\"\n      },\n      \"Qty\": \"<number>\",\n      \"SecondaryQty\": \"<number>\"\n    },\n    {\n      \"ItemIdentifier\": {\n        \"Id\": \"<integer>\",\n        \"Sku\": \"<string>\"\n      },\n      \"Qty\": \"<number>\",\n      \"SecondaryQty\": \"<number>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "448857b5-0634-46b7-a0f3-4b70e0b5380d",
+              "name": "The created receiver.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inventory",
+                    "receivers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"CustomerIdentifier\": {\n    \"Id\": \"<integer>\",\n    \"Name\": \"<string>\"\n  },\n  \"FacilityIdentifier\": {\n    \"Id\": \"<integer>\",\n    \"Name\": \"<string>\"\n  },\n  \"ReferenceNum\": \"<string>\",\n  \"PoNum\": \"<string>\",\n  \"ExpectedDate\": \"<dateTime>\",\n  \"ReceiveItems\": [\n    {\n      \"ItemIdentifier\": {\n        \"Id\": \"<integer>\",\n        \"Sku\": \"<string>\"\n      },\n      \"Qty\": \"<number>\",\n      \"SecondaryQty\": \"<number>\"\n    },\n    {\n      \"ItemIdentifier\": {\n        \"Id\": \"<integer>\",\n        \"Sku\": \"<string>\"\n      },\n      \"Qty\": \"<number>\",\n      \"SecondaryQty\": \"<number>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"CustomerIdentifier\": {\n    \"Id\": \"<integer>\",\n    \"Name\": \"<string>\"\n  },\n  \"FacilityIdentifier\": {\n    \"Id\": \"<integer>\",\n    \"Name\": \"<string>\"\n  },\n  \"ReferenceNum\": \"<string>\",\n  \"PoNum\": \"<string>\",\n  \"ExpectedDate\": \"<dateTime>\",\n  \"ReceiveItems\": [\n    {\n      \"ItemIdentifier\": {\n        \"Id\": \"<integer>\",\n        \"Sku\": \"<string>\"\n      },\n      \"Qty\": \"<number>\",\n      \"SecondaryQty\": \"<number>\"\n    },\n    {\n      \"ItemIdentifier\": {\n        \"Id\": \"<integer>\",\n        \"Sku\": \"<string>\"\n      },\n      \"Qty\": \"<number>\",\n      \"SecondaryQty\": \"<number>\"\n    }\n  ],\n  \"ReceiverId\": 4198,\n  \"ReadOnly\": {\n    \"key_0\": 5007.205301437491\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e107858b-6880-4a08-9ac9-4d10cd7e2a42",
+              "name": "The request payload failed validation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inventory",
+                    "receivers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"CustomerIdentifier\": {\n    \"Id\": \"<integer>\",\n    \"Name\": \"<string>\"\n  },\n  \"FacilityIdentifier\": {\n    \"Id\": \"<integer>\",\n    \"Name\": \"<string>\"\n  },\n  \"ReferenceNum\": \"<string>\",\n  \"PoNum\": \"<string>\",\n  \"ExpectedDate\": \"<dateTime>\",\n  \"ReceiveItems\": [\n    {\n      \"ItemIdentifier\": {\n        \"Id\": \"<integer>\",\n        \"Sku\": \"<string>\"\n      },\n      \"Qty\": \"<number>\",\n      \"SecondaryQty\": \"<number>\"\n    },\n    {\n      \"ItemIdentifier\": {\n        \"Id\": \"<integer>\",\n        \"Sku\": \"<string>\"\n      },\n      \"Qty\": \"<number>\",\n      \"SecondaryQty\": \"<number>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e73966a3-f3a3-464c-bd5b-577c47576375",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inventory",
+                    "receivers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"CustomerIdentifier\": {\n    \"Id\": \"<integer>\",\n    \"Name\": \"<string>\"\n  },\n  \"FacilityIdentifier\": {\n    \"Id\": \"<integer>\",\n    \"Name\": \"<string>\"\n  },\n  \"ReferenceNum\": \"<string>\",\n  \"PoNum\": \"<string>\",\n  \"ExpectedDate\": \"<dateTime>\",\n  \"ReceiveItems\": [\n    {\n      \"ItemIdentifier\": {\n        \"Id\": \"<integer>\",\n        \"Sku\": \"<string>\"\n      },\n      \"Qty\": \"<number>\",\n      \"SecondaryQty\": \"<number>\"\n    },\n    {\n      \"ItemIdentifier\": {\n        \"Id\": \"<integer>\",\n        \"Sku\": \"<string>\"\n      },\n      \"Qty\": \"<number>\",\n      \"SecondaryQty\": \"<number>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "62b5a3da-8ee8-4e0a-a501-7141c608bd0b",
+          "name": "Retrieve a receiver (ASN)",
+          "request": {
+            "name": "Retrieve a receiver (ASN)",
+            "description": {
+              "content": "Retrieves a single inbound receiver by id. DOCUMENTED (GET /inventory/receivers/{id}); response is MODELED here.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "inventory",
+                "receivers",
+                ":receiverId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "receiverId",
+                  "description": "(Required) The receiver (ASN) identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bb2a8a73-9d10-4d19-af53-bff18d789789",
+              "name": "The receiver.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inventory",
+                    "receivers",
+                    ":receiverId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "receiverId",
+                      "description": "(Required) The receiver (ASN) identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"CustomerIdentifier\": {\n    \"Id\": \"<integer>\",\n    \"Name\": \"<string>\"\n  },\n  \"FacilityIdentifier\": {\n    \"Id\": \"<integer>\",\n    \"Name\": \"<string>\"\n  },\n  \"ReferenceNum\": \"<string>\",\n  \"PoNum\": \"<string>\",\n  \"ExpectedDate\": \"<dateTime>\",\n  \"ReceiveItems\": [\n    {\n      \"ItemIdentifier\": {\n        \"Id\": \"<integer>\",\n        \"Sku\": \"<string>\"\n      },\n      \"Qty\": \"<number>\",\n      \"SecondaryQty\": \"<number>\"\n    },\n    {\n      \"ItemIdentifier\": {\n        \"Id\": \"<integer>\",\n        \"Sku\": \"<string>\"\n      },\n      \"Qty\": \"<number>\",\n      \"SecondaryQty\": \"<number>\"\n    }\n  ],\n  \"ReceiverId\": 4198,\n  \"ReadOnly\": {\n    \"key_0\": 5007.205301437491\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "96800e4d-6437-4b7c-b57e-f600db8e5c46",
+              "name": "Missing, invalid, or expired access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inventory",
+                    "receivers",
+                    ":receiverId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "receiverId",
+                      "description": "(Required) The receiver (ASN) identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5d7d1605-3e59-40be-acdb-96d6925bad3c",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inventory",
+                    "receivers",
+                    ":receiverId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "receiverId",
+                      "description": "(Required) The receiver (ASN) identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://secure-wms.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1e2afaf4-066b-40fd-9ca3-634a58aa3735",
+    "name": "3PL Warehouse Manager (SecureWMS) REST Authentication Receivers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for 3PL Warehouse Manager, the cloud warehouse management system (WMS) for third-party logistics providers, sold under Extensiv and historically known as \"3PL Central\". The public integration surface is the SecureWMS REST API served from https://secure-wms.com. It is used to create and retrieve orders, manage SKU items and inventory, read stock summaries and stock details, submit and track inbound receivers (Advance Ship Notices), and enumerate customers, warehouses/facilities, and locations.\n\nAuthentication is OAuth 2.0 client-credentials. Base64-encode \"clientId:clientSecret\" and POST it as a Basic Authorization header to /AuthServer/api/Token with a JSON body of {\"grant_type\":\"client_credentials\",\"user_login_id\":<id>} (a user_login or user_login_id provided by the warehouse for auditing). The returned bearer access token is short-lived - typically valid 30 to 60 minutes - and should be refreshed at least every 30 minutes. All traffic must use HTTPS; plain HTTP is not supported.\n\nCollection endpoints are paged with pgnum (page number) and pgsiz (page size) query parameters and can be filtered with Resource Query Language (RQL, http://api.3plcentral.com/rels/rql) via the rql parameter and ordered with sort. Responses are HAL-style JSON where list payloads carry records under a ResourceList (or Summaries for stock summaries) property.\n\nEndpoint provenance: read (GET) endpoints for customers, items, inventory, stock details, stock summaries, facility locations, and orders are CONFIRMED against the public developer portal and the open-source singer-io tap-3plcentral extractor. Order creation, receiver (ASN) create/list/get, and the facilities and order-packages resources are documented in the 3PL Warehouse Manager developer portal; request/response shapes that are gated behind the authenticated developer portal are MODELED here honestly and marked per-operation with x-endpoint-status.\n\nContact Support:\n Name: Extensiv - 3PL Warehouse Manager Developer Community",
+      "type": "text/plain"
+    }
+  }
+}

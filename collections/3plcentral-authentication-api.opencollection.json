@@ -1,0 +1,44 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "3PL Warehouse Manager (SecureWMS) REST Authentication API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Issue an OAuth 2.0 access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://secure-wms.com/AuthServer/api/Token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Exchanges Base64-encoded client credentials (Basic auth header) for a short-lived bearer access token using the client_credentials grant. CONFIRMED against the Extensiv \"Providing REST API Access\" documentation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

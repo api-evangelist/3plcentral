@@ -1,0 +1,98 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "3PL Warehouse Manager (SecureWMS) REST Authentication Inventory API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Inventory",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve on-hand inventory",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure-wms.com/inventory",
+            "params": [
+              {
+                "name": "pgnum",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based)."
+              },
+              {
+                "name": "pgsiz",
+                "value": "",
+                "type": "query",
+                "description": "Page size (records per page)."
+              },
+              {
+                "name": "rql",
+                "value": "",
+                "type": "query",
+                "description": "Resource Query Language filter, e.g. \"readonly.lastModifiedDate=ge=2024-01-01\". Reference http://api.3plcentral.com/rels/rql."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by, e.g. ReadOnly.lastModifiedDate or receivedDate."
+              }
+            ]
+          },
+          "docs": "Retrieves inventory received on or before a point in time. Paged, filterable with rql, sortable by receivedDate. CONFIRMED (GET /inventory)."
+        },
+        {
+          "info": {
+            "name": "Retrieve stock details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure-wms.com/inventory/stockdetails",
+            "params": [
+              {
+                "name": "pgnum",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based)."
+              },
+              {
+                "name": "pgsiz",
+                "value": "",
+                "type": "query",
+                "description": "Page size (records per page)."
+              },
+              {
+                "name": "rql",
+                "value": "",
+                "type": "query",
+                "description": "Resource Query Language filter, e.g. \"readonly.lastModifiedDate=ge=2024-01-01\". Reference http://api.3plcentral.com/rels/rql."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by, e.g. ReadOnly.lastModifiedDate or receivedDate."
+              }
+            ]
+          },
+          "docs": "Per-receive-line stock detail records (facility, item, lot, expiration, received date, quantities). Paged/filterable/sortable by receivedDate. CONFIRMED (GET /inventory/stockdetails)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
