@@ -35,6 +35,16 @@ tags:
 - Logistics
 - Fulfillment
 - Inventory
+- Order
+- SecureWMS
+- Extensiv
+tags_raw:
+- Warehouse Management
+- WMS
+- 3PL
+- Logistics
+- Fulfillment
+- Inventory
 - Orders
 - SecureWMS
 - Extensiv
@@ -102,6 +112,8 @@ apis:
   humanURL: https://developer.3plcentral.com/
   baseURL: https://secure-wms.com
   tags:
+  - Item
+  tags_raw:
   - Items
   properties:
   - type: OpenAPI
@@ -120,6 +132,8 @@ apis:
   humanURL: https://developer.3plcentral.com/
   baseURL: https://secure-wms.com
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
