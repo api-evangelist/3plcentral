@@ -231,6 +231,9 @@ apis:
   - type: OpenCollection
     url: collections/3plcentral.opencollection.json
 common:
+- type: CapabilityMap
+  url: capabilities/3plcentral-capability-edges.yml
+  name: 3PL Warehouse Manager Business Capability Map
 - type: AgenticAccess
   url: agentic-access/3plcentral-agentic-access.yml
 - type: TrustCenter

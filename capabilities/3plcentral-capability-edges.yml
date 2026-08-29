@@ -1,0 +1,53 @@
+slug: 3plcentral
+provider: 3PL Warehouse Manager
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Transportation & Logistics
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 4
+edges:
+- tag: Receivers
+  spec_file: 3plcentral-receivers-api-openapi.yml
+  capability_id: BC-2460.10
+  capability_id_l1: BC-2460
+  capability_name: Inbound Operations Management
+  confidence: 0.85
+  evidence: POST /inventory/receivers  createReceiver  Create a receiver (ASN)
+  reason: Receivers are Advance Ship Notices for goods arriving at the 3PL warehouse; creating and listing
+    them is the receipt/inbound flow of warehouse operations.
+- tag: Inventory
+  spec_file: 3plcentral-inventory-api-openapi.yml
+  capability_id: BC-2460.20
+  capability_id_l1: BC-2460
+  capability_name: Storage and Inventory Operations Management
+  confidence: 0.8
+  evidence: GET /inventory  getInventory  Retrieve on-hand inventory; GET /inventory/stockdetails  getStockDetails
+  reason: On-hand inventory and stock detail reads within a 3PL warehouse management system are third-party
+    storage and inventory operations.
+- tag: Orders
+  spec_file: 3plcentral-orders-api-openapi.yml
+  capability_id: BC-2460.30
+  capability_id_l1: BC-2460
+  capability_name: Outbound Operations Management
+  confidence: 0.75
+  evidence: POST /orders  createOrder  Create an order; schemas FacilityIdentifier, ItemIdentifier, ShippingAddress
+    within a "cloud warehouse management system (WMS) for third-party logistics providers"
+  reason: Orders in this WMS are outbound fulfilment orders against a facility, driving pick/pack/dispatch;
+    some ambiguity between outbound operations and general order fulfilment.
+- tag: Stock Summaries
+  spec_file: 3plcentral-stock-summaries-api-openapi.yml
+  capability_id: BC-2460.20
+  capability_id_l1: BC-2460
+  capability_name: Storage and Inventory Operations Management
+  confidence: 0.72
+  evidence: GET /inventory/stocksummaries  getStockSummaries  Retrieve stock summaries
+  reason: Stock summaries in a 3PL WMS report on-hand inventory held in the warehouse, i.e. in-house storage
+    and inventory operations. Cross-industry BC-530 is a plausible alternative but the vendor operates
+    third-party warehouses, so the warehousing-operations reading fits better.
