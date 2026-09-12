@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: 3PL Warehouse Manager (SecureWMS) REST Authentication Customers API
   description: 'REST API for 3PL Warehouse Manager, the cloud warehouse management system (WMS) for third-party logistics providers, sold under Extensiv and historically known as "3PL Central". The public integration surface is the SecureWMS REST API served from https://secure-wms.com. It is used to create and retrieve orders, manage SKU items and inventory, read stock summaries and stock details, submit and track inbound receivers (Advance Ship Notices), and enumerate customers, warehouses/facilities, and locations.
@@ -51,15 +51,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   parameters:
-    pgnum:
-      name: pgnum
-      in: query
-      description: Page number (1-based).
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
     pgsiz:
       name: pgsiz
       in: query
@@ -69,13 +60,6 @@ components:
         type: integer
         minimum: 1
         default: 100
-    sort:
-      name: sort
-      in: query
-      description: Field to sort by, e.g. ReadOnly.lastModifiedDate or receivedDate.
-      required: false
-      schema:
-        type: string
     rql:
       name: rql
       in: query
@@ -83,9 +67,22 @@ components:
       required: false
       schema:
         type: string
-  responses:
-    Unauthorized:
-      description: Missing, invalid, or expired access token.
+    sort:
+      name: sort
+      in: query
+      description: Field to sort by, e.g. ReadOnly.lastModifiedDate or receivedDate.
+      required: false
+      schema:
+        type: string
+    pgnum:
+      name: pgnum
+      in: query
+      description: Page number (1-based).
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
   schemas:
     ResourceListResponse:
       type: object
@@ -101,6 +98,9 @@ components:
         _links:
           type: object
           additionalProperties: true
+  responses:
+    Unauthorized:
+      description: Missing, invalid, or expired access token.
   securitySchemes:
     bearerAuth:
       type: http

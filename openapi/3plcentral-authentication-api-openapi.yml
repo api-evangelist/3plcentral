@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: 3PL Warehouse Manager (SecureWMS) REST Authentication API
   description: 'REST API for 3PL Warehouse Manager, the cloud warehouse management system (WMS) for third-party logistics providers, sold under Extensiv and historically known as "3PL Central". The public integration surface is the SecureWMS REST API served from https://secure-wms.com. It is used to create and retrieve orders, manage SKU items and inventory, read stock summaries and stock details, submit and track inbound receivers (Advance Ship Notices), and enumerate customers, warehouses/facilities, and locations.
@@ -57,17 +57,6 @@ components:
     Unauthorized:
       description: Missing, invalid, or expired access token.
   schemas:
-    TokenResponse:
-      type: object
-      properties:
-        access_token:
-          type: string
-        token_type:
-          type: string
-          example: Bearer
-        expires_in:
-          type: integer
-          description: Token lifetime in seconds (typically 1800-3600).
     TokenRequest:
       type: object
       required:
@@ -79,6 +68,17 @@ components:
         user_login_id:
           type: integer
           description: User login id provided by the warehouse, used for auditing.
+    TokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+        token_type:
+          type: string
+          example: Bearer
+        expires_in:
+          type: integer
+          description: Token lifetime in seconds (typically 1800-3600).
   securitySchemes:
     bearerAuth:
       type: http
