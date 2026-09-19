@@ -40,6 +40,9 @@ accessModel:
   generated: '2026-07-22'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/3plcentral.png
+x-docs-platform: postman
+x-docs-platform-confidence: high
+x-docs-platform-checked: 2026-09-17
 tags:
 - Warehouse Management
 - WMS
@@ -218,6 +221,8 @@ apis:
   humanURL: https://developer.3plcentral.com/
   baseURL: https://secure-wms.com
   tags:
+  - Warehouse
+  tags_raw:
   - Warehouses
   properties:
   - type: OpenAPI
