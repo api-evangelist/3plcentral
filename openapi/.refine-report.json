@@ -1,15 +1,7 @@
 {
   "provider": "3plcentral",
   "sources": [
-    "3plcentral-authentication-api-openapi.yml",
-    "3plcentral-customers-api-openapi.yml",
-    "3plcentral-inventory-api-openapi.yml",
-    "3plcentral-items-api-openapi.yml",
-    "3plcentral-orders-api-openapi.yml",
-    "3plcentral-packages-api-openapi.yml",
-    "3plcentral-receivers-api-openapi.yml",
-    "3plcentral-stock-summaries-api-openapi.yml",
-    "3plcentral-warehouses-api-openapi.yml"
+    "_original/3plcentral-openapi.yml"
   ],
   "outputs": [
     "3plcentral-authentication-api-openapi.yml",
@@ -26,7 +18,19 @@
   "errors": [],
   "warnings": [],
   "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "3plcentral-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "3plcentral-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "3plcentral-customers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "3plcentral-inventory-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "3plcentral-items-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "3plcentral-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "3plcentral-packages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "3plcentral-receivers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "3plcentral-stock-summaries-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "3plcentral-warehouses-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
