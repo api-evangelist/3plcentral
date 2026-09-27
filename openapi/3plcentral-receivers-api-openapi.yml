@@ -86,34 +86,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    FacilityIdentifier:
-      type: object
-      properties:
-        Id:
-          type: integer
-        Name:
-          type: string
-    CustomerIdentifier:
-      type: object
-      properties:
-        Id:
-          type: integer
-        Name:
-          type: string
-    ResourceListResponse:
-      type: object
-      description: HAL-style list payload. Records are carried under ResourceList.
-      properties:
-        TotalResults:
-          type: integer
-        ResourceList:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-        _links:
-          type: object
-          additionalProperties: true
     ItemIdentifier:
       type: object
       properties:
@@ -121,6 +93,22 @@ components:
           type: integer
         Sku:
           type: string
+    FacilityIdentifier:
+      type: object
+      properties:
+        Id:
+          type: integer
+        Name:
+          type: string
+    OrderItem:
+      type: object
+      properties:
+        ItemIdentifier:
+          $ref: '#/components/schemas/ItemIdentifier'
+        Qty:
+          type: number
+        SecondaryQty:
+          type: number
     ReceiverCreate:
       type: object
       required:
@@ -141,15 +129,27 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OrderItem'
-    OrderItem:
+    ResourceListResponse:
+      type: object
+      description: HAL-style list payload. Records are carried under ResourceList.
+      properties:
+        TotalResults:
+          type: integer
+        ResourceList:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        _links:
+          type: object
+          additionalProperties: true
+    CustomerIdentifier:
       type: object
       properties:
-        ItemIdentifier:
-          $ref: '#/components/schemas/ItemIdentifier'
-        Qty:
-          type: number
-        SecondaryQty:
-          type: number
+        Id:
+          type: integer
+        Name:
+          type: string
     Receiver:
       allOf:
       - $ref: '#/components/schemas/ReceiverCreate'
@@ -160,14 +160,14 @@ components:
           ReadOnly:
             type: object
             additionalProperties: true
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-    BadRequest:
-      description: The request payload failed validation.
-    Unauthorized:
-      description: Missing, invalid, or expired access token.
   parameters:
+    rql:
+      name: rql
+      in: query
+      description: Resource Query Language filter, e.g. "readonly.lastModifiedDate=ge=2024-01-01". Reference http://api.3plcentral.com/rels/rql.
+      required: false
+      schema:
+        type: string
     pgsiz:
       name: pgsiz
       in: query
@@ -184,13 +184,6 @@ components:
       description: The receiver (ASN) identifier.
       schema:
         type: integer
-    rql:
-      name: rql
-      in: query
-      description: Resource Query Language filter, e.g. "readonly.lastModifiedDate=ge=2024-01-01". Reference http://api.3plcentral.com/rels/rql.
-      required: false
-      schema:
-        type: string
     pgnum:
       name: pgnum
       in: query
@@ -200,6 +193,13 @@ components:
         type: integer
         minimum: 1
         default: 1
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+    BadRequest:
+      description: The request payload failed validation.
+    Unauthorized:
+      description: Missing, invalid, or expired access token.
   securitySchemes:
     bearerAuth:
       type: http

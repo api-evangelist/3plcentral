@@ -86,60 +86,13 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    orderId:
-      name: orderId
-      in: path
-      required: true
-      description: The order identifier.
-      schema:
-        type: integer
-    sort:
-      name: sort
-      in: query
-      description: Field to sort by, e.g. ReadOnly.lastModifiedDate or receivedDate.
-      required: false
-      schema:
-        type: string
-    pgsiz:
-      name: pgsiz
-      in: query
-      description: Page size (records per page).
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 100
-    rql:
-      name: rql
-      in: query
-      description: Resource Query Language filter, e.g. "readonly.lastModifiedDate=ge=2024-01-01". Reference http://api.3plcentral.com/rels/rql.
-      required: false
-      schema:
-        type: string
-    pgnum:
-      name: pgnum
-      in: query
-      description: Page number (1-based).
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
   schemas:
-    FacilityIdentifier:
+    ItemIdentifier:
       type: object
       properties:
         Id:
           type: integer
-        Name:
-          type: string
-    CustomerIdentifier:
-      type: object
-      properties:
-        Id:
-          type: integer
-        Name:
+        Sku:
           type: string
     Order:
       allOf:
@@ -168,36 +121,6 @@ components:
           type: string
         Country:
           type: string
-    ItemIdentifier:
-      type: object
-      properties:
-        Id:
-          type: integer
-        Sku:
-          type: string
-    ResourceListResponse:
-      type: object
-      description: HAL-style list payload. Records are carried under ResourceList.
-      properties:
-        TotalResults:
-          type: integer
-        ResourceList:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-        _links:
-          type: object
-          additionalProperties: true
-    OrderItem:
-      type: object
-      properties:
-        ItemIdentifier:
-          $ref: '#/components/schemas/ItemIdentifier'
-        Qty:
-          type: number
-        SecondaryQty:
-          type: number
     OrderCreate:
       type: object
       required:
@@ -218,6 +141,83 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OrderItem'
+    OrderItem:
+      type: object
+      properties:
+        ItemIdentifier:
+          $ref: '#/components/schemas/ItemIdentifier'
+        Qty:
+          type: number
+        SecondaryQty:
+          type: number
+    FacilityIdentifier:
+      type: object
+      properties:
+        Id:
+          type: integer
+        Name:
+          type: string
+    ResourceListResponse:
+      type: object
+      description: HAL-style list payload. Records are carried under ResourceList.
+      properties:
+        TotalResults:
+          type: integer
+        ResourceList:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        _links:
+          type: object
+          additionalProperties: true
+    CustomerIdentifier:
+      type: object
+      properties:
+        Id:
+          type: integer
+        Name:
+          type: string
+  parameters:
+    rql:
+      name: rql
+      in: query
+      description: Resource Query Language filter, e.g. "readonly.lastModifiedDate=ge=2024-01-01". Reference http://api.3plcentral.com/rels/rql.
+      required: false
+      schema:
+        type: string
+    orderId:
+      name: orderId
+      in: path
+      required: true
+      description: The order identifier.
+      schema:
+        type: integer
+    sort:
+      name: sort
+      in: query
+      description: Field to sort by, e.g. ReadOnly.lastModifiedDate or receivedDate.
+      required: false
+      schema:
+        type: string
+    pgnum:
+      name: pgnum
+      in: query
+      description: Page number (1-based).
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    pgsiz:
+      name: pgsiz
+      in: query
+      description: Page size (records per page).
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 100
   responses:
     NotFound:
       description: The requested resource was not found.

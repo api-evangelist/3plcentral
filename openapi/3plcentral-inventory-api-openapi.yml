@@ -63,6 +63,39 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    rql:
+      name: rql
+      in: query
+      description: Resource Query Language filter, e.g. "readonly.lastModifiedDate=ge=2024-01-01". Reference http://api.3plcentral.com/rels/rql.
+      required: false
+      schema:
+        type: string
+    sort:
+      name: sort
+      in: query
+      description: Field to sort by, e.g. ReadOnly.lastModifiedDate or receivedDate.
+      required: false
+      schema:
+        type: string
+    pgnum:
+      name: pgnum
+      in: query
+      description: Page number (1-based).
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    pgsiz:
+      name: pgsiz
+      in: query
+      description: Page size (records per page).
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 100
   schemas:
     ResourceListResponse:
       type: object
@@ -78,39 +111,6 @@ components:
         _links:
           type: object
           additionalProperties: true
-  parameters:
-    sort:
-      name: sort
-      in: query
-      description: Field to sort by, e.g. ReadOnly.lastModifiedDate or receivedDate.
-      required: false
-      schema:
-        type: string
-    pgsiz:
-      name: pgsiz
-      in: query
-      description: Page size (records per page).
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 100
-    rql:
-      name: rql
-      in: query
-      description: Resource Query Language filter, e.g. "readonly.lastModifiedDate=ge=2024-01-01". Reference http://api.3plcentral.com/rels/rql.
-      required: false
-      schema:
-        type: string
-    pgnum:
-      name: pgnum
-      in: query
-      description: Page number (1-based).
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
   responses:
     Unauthorized:
       description: Missing, invalid, or expired access token.

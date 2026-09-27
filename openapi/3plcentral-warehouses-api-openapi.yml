@@ -62,31 +62,7 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  schemas:
-    ResourceListResponse:
-      type: object
-      description: HAL-style list payload. Records are carried under ResourceList.
-      properties:
-        TotalResults:
-          type: integer
-        ResourceList:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-        _links:
-          type: object
-          additionalProperties: true
   parameters:
-    pgsiz:
-      name: pgsiz
-      in: query
-      description: Page size (records per page).
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 100
     rql:
       name: rql
       in: query
@@ -110,6 +86,30 @@ components:
         type: integer
         minimum: 1
         default: 1
+    pgsiz:
+      name: pgsiz
+      in: query
+      description: Page size (records per page).
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 100
+  schemas:
+    ResourceListResponse:
+      type: object
+      description: HAL-style list payload. Records are carried under ResourceList.
+      properties:
+        TotalResults:
+          type: integer
+        ResourceList:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        _links:
+          type: object
+          additionalProperties: true
   responses:
     Unauthorized:
       description: Missing, invalid, or expired access token.
