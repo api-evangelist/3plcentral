@@ -63,6 +63,15 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   parameters:
+    pgnum:
+      name: pgnum
+      in: query
+      description: Page number (1-based).
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
     rql:
       name: rql
       in: query
@@ -77,15 +86,6 @@ components:
       description: The facility (warehouse) identifier.
       schema:
         type: integer
-    pgnum:
-      name: pgnum
-      in: query
-      description: Page number (1-based).
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
     pgsiz:
       name: pgsiz
       in: query

@@ -40,11 +40,6 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-    Unauthorized:
-      description: Missing, invalid, or expired access token.
   schemas:
     ResourceListResponse:
       type: object
@@ -60,6 +55,11 @@ components:
         _links:
           type: object
           additionalProperties: true
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+    Unauthorized:
+      description: Missing, invalid, or expired access token.
   parameters:
     orderId:
       name: orderId
