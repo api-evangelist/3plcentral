@@ -44,18 +44,10 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Missing, invalid, or expired access token.
   schemas:
-    TokenResponse:
-      type: object
-      properties:
-        access_token:
-          type: string
-        token_type:
-          type: string
-          example: Bearer
-        expires_in:
-          type: integer
-          description: Token lifetime in seconds (typically 1800-3600).
     TokenRequest:
       type: object
       required:
@@ -67,9 +59,17 @@ components:
         user_login_id:
           type: integer
           description: User login id provided by the warehouse, used for auditing.
-  responses:
-    Unauthorized:
-      description: Missing, invalid, or expired access token.
+    TokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+        token_type:
+          type: string
+          example: Bearer
+        expires_in:
+          type: integer
+          description: Token lifetime in seconds (typically 1800-3600).
   securitySchemes:
     bearerAuth:
       type: http

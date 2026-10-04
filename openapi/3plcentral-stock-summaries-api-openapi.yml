@@ -40,6 +40,9 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Missing, invalid, or expired access token.
   parameters:
     pgnum:
       name: pgnum
@@ -50,13 +53,6 @@ components:
         type: integer
         minimum: 1
         default: 1
-    rql:
-      name: rql
-      in: query
-      description: Resource Query Language filter, e.g. "readonly.lastModifiedDate=ge=2024-01-01". Reference http://api.3plcentral.com/rels/rql.
-      required: false
-      schema:
-        type: string
     pgsiz:
       name: pgsiz
       in: query
@@ -66,7 +62,27 @@ components:
         type: integer
         minimum: 1
         default: 100
+    rql:
+      name: rql
+      in: query
+      description: Resource Query Language filter, e.g. "readonly.lastModifiedDate=ge=2024-01-01". Reference http://api.3plcentral.com/rels/rql.
+      required: false
+      schema:
+        type: string
   schemas:
+    SummariesResponse:
+      type: object
+      description: Stock summaries list payload. Records are carried under Summaries.
+      properties:
+        TotalResults:
+          type: integer
+        Summaries:
+          type: array
+          items:
+            $ref: '#/components/schemas/StockSummary'
+        _links:
+          type: object
+          additionalProperties: true
     StockSummary:
       type: object
       properties:
@@ -84,22 +100,6 @@ components:
           type: number
         Committed:
           type: number
-    SummariesResponse:
-      type: object
-      description: Stock summaries list payload. Records are carried under Summaries.
-      properties:
-        TotalResults:
-          type: integer
-        Summaries:
-          type: array
-          items:
-            $ref: '#/components/schemas/StockSummary'
-        _links:
-          type: object
-          additionalProperties: true
-  responses:
-    Unauthorized:
-      description: Missing, invalid, or expired access token.
   securitySchemes:
     bearerAuth:
       type: http

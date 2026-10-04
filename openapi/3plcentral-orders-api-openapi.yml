@@ -86,46 +86,13 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    pgnum:
-      name: pgnum
-      in: query
-      description: Page number (1-based).
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-    rql:
-      name: rql
-      in: query
-      description: Resource Query Language filter, e.g. "readonly.lastModifiedDate=ge=2024-01-01". Reference http://api.3plcentral.com/rels/rql.
-      required: false
-      schema:
-        type: string
-    sort:
-      name: sort
-      in: query
-      description: Field to sort by, e.g. ReadOnly.lastModifiedDate or receivedDate.
-      required: false
-      schema:
-        type: string
-    orderId:
-      name: orderId
-      in: path
-      required: true
-      description: The order identifier.
-      schema:
-        type: integer
-    pgsiz:
-      name: pgsiz
-      in: query
-      description: Page size (records per page).
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 100
+  responses:
+    Unauthorized:
+      description: Missing, invalid, or expired access token.
+    NotFound:
+      description: The requested resource was not found.
+    BadRequest:
+      description: The request payload failed validation.
   schemas:
     ItemIdentifier:
       type: object
@@ -134,6 +101,43 @@ components:
           type: integer
         Sku:
           type: string
+    OrderItem:
+      type: object
+      properties:
+        ItemIdentifier:
+          $ref: '#/components/schemas/ItemIdentifier'
+        Qty:
+          type: number
+        SecondaryQty:
+          type: number
+    FacilityIdentifier:
+      type: object
+      properties:
+        Id:
+          type: integer
+        Name:
+          type: string
+    CustomerIdentifier:
+      type: object
+      properties:
+        Id:
+          type: integer
+        Name:
+          type: string
+    ResourceListResponse:
+      type: object
+      description: HAL-style list payload. Records are carried under ResourceList.
+      properties:
+        TotalResults:
+          type: integer
+        ResourceList:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        _links:
+          type: object
+          additionalProperties: true
     OrderCreate:
       type: object
       required:
@@ -154,36 +158,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OrderItem'
-    ResourceListResponse:
-      type: object
-      description: HAL-style list payload. Records are carried under ResourceList.
-      properties:
-        TotalResults:
-          type: integer
-        ResourceList:
-          type: array
-          items:
+    Order:
+      allOf:
+      - $ref: '#/components/schemas/OrderCreate'
+      - type: object
+        properties:
+          OrderId:
+            type: integer
+          ReadOnly:
             type: object
             additionalProperties: true
-        _links:
-          type: object
-          additionalProperties: true
-    OrderItem:
-      type: object
-      properties:
-        ItemIdentifier:
-          $ref: '#/components/schemas/ItemIdentifier'
-        Qty:
-          type: number
-        SecondaryQty:
-          type: number
-    FacilityIdentifier:
-      type: object
-      properties:
-        Id:
-          type: integer
-        Name:
-          type: string
     Address:
       type: object
       properties:
@@ -201,30 +185,46 @@ components:
           type: string
         Country:
           type: string
-    CustomerIdentifier:
-      type: object
-      properties:
-        Id:
-          type: integer
-        Name:
-          type: string
-    Order:
-      allOf:
-      - $ref: '#/components/schemas/OrderCreate'
-      - type: object
-        properties:
-          OrderId:
-            type: integer
-          ReadOnly:
-            type: object
-            additionalProperties: true
-  responses:
-    Unauthorized:
-      description: Missing, invalid, or expired access token.
-    NotFound:
-      description: The requested resource was not found.
-    BadRequest:
-      description: The request payload failed validation.
+  parameters:
+    sort:
+      name: sort
+      in: query
+      description: Field to sort by, e.g. ReadOnly.lastModifiedDate or receivedDate.
+      required: false
+      schema:
+        type: string
+    pgnum:
+      name: pgnum
+      in: query
+      description: Page number (1-based).
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    orderId:
+      name: orderId
+      in: path
+      required: true
+      description: The order identifier.
+      schema:
+        type: integer
+    pgsiz:
+      name: pgsiz
+      in: query
+      description: Page size (records per page).
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 100
+    rql:
+      name: rql
+      in: query
+      description: Resource Query Language filter, e.g. "readonly.lastModifiedDate=ge=2024-01-01". Reference http://api.3plcentral.com/rels/rql.
+      required: false
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http
